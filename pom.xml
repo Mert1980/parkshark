@@ -43,6 +43,12 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- Spring DOCS -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.12</version>
+        </dependency>
         <!-- SECURITY -->
         <!-- needed for the SwitchSecure HomeMadeSecurity -->
         <dependency>
