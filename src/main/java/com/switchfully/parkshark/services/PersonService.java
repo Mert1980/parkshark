@@ -34,6 +34,6 @@ public class PersonService {
   }
 
   public PersonDtoResponse deleteMember(long id) {
-
+    return null;
   }
 }
