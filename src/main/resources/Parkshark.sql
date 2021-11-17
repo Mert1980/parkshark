@@ -12,7 +12,7 @@ CREATE TYPE "membership_type" AS ENUM (
 );
 
 CREATE TABLE "division" (
-  "division_id" int,
+  "division_id" int PRIMARY KEY ,
   "parent_division_id" int,
   "name" varchar,
   "original_name" varchar,
@@ -31,7 +31,7 @@ CREATE TABLE "parkinglot" (
 );
 
 CREATE TABLE "person" (
-  "id" int,
+  "id" int PRIMARY KEY ,
   "firstname" varchar,
   "lastname" varchar,
   "email" varchar,
@@ -43,7 +43,7 @@ CREATE TABLE "person" (
 );
 
 CREATE TABLE "address" (
-  "address_id" int,
+  "address_id" int primary key ,
   "streetname" varchar,
   "streetnumber" varchar,
   "city" varchar,
@@ -56,7 +56,7 @@ CREATE TABLE "membership" (
 );
 
 CREATE TABLE "parkinglot_allocation" (
-  "parkinglot_allocation_id" int,
+  "parkinglot_allocation_id" int primary key ,
   "parkinglot_id_fk" int,
   "member_id" int,
   "license_plate_number" varchar,
