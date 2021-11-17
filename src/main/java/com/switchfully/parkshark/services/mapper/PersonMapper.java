@@ -1,18 +1,28 @@
 package com.switchfully.parkshark.services.mapper;
 
 import com.switchfully.parkshark.domain.Person;
-import com.switchfully.parkshark.api.dto.PersonDtoRequest;
-import com.switchfully.parkshark.api.dto.PersonDtoResponse;
+import com.switchfully.parkshark.dto.PersonDtoRequest;
+import com.switchfully.parkshark.dto.PersonDtoResponse;
 import java.time.LocalDateTime;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PersonMapper {
+  private final AddressMapper addressMapper;
+
+  @Autowired
+  public PersonMapper(AddressMapper addressMapper) {
+    this.addressMapper = addressMapper;
+  }
+
 
   public Person toEntity(PersonDtoRequest personDtoRequest) {
     return Person.builder()
         .firstName(personDtoRequest.getFirstName())
         .lastName(personDtoRequest.getLastName())
         .email(personDtoRequest.getEmail())
-        .address(personDtoRequest.getAddress())
+        .address(addressMapper.toEntity(personDtoRequest.getAddressDtoRequest()))
         .phoneNumberMobile(personDtoRequest.getPhoneNumberMobile())
         .phoneNumberLocal(personDtoRequest.getPhoneNumberLocal())
         .licensePlateNumber(personDtoRequest.getLicencePlateNumber())
@@ -27,17 +37,11 @@ public class PersonMapper {
           .firstName(person.getFirstName())
           .lastName(person.getLastName())
           .email(person.getEmail())
-          .address(person.getAddress())
+          .addressDtoResponse(addressMapper.toResponse(person.getAddress()))
           .phoneNumberMobile(person.getPhoneNumberMobile())
           .phoneNumberLocal(person.getPhoneNumberLocal())
           .licencePlateNumber(person.getLicensePlateNumber())
           .registrationDate(person.getRegistrationDate().toString())
           .build();
     }
-
-    public PersonDtoResponse toResponse(PersonDtoRequest request){
-      Person person = toEntity(request);
-      return toResponse(person);
-    }
-
 }

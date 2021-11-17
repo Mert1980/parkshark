@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Builder;
@@ -28,7 +29,7 @@ public class Address {
   @Column(name = "streetnumber")
   private String streetNumber;
   @Column(name = "city")
-  private String cityName;
+  private String city;
   @Column(name = "postal_code")
   private String postalCode;
 

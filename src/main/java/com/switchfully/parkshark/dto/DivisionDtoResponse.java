@@ -1,4 +1,4 @@
-package com.switchfully.parkshark.api.dto;
+package com.switchfully.parkshark.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;

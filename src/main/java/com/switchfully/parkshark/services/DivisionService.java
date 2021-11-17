@@ -1,7 +1,7 @@
 package com.switchfully.parkshark.services;
 
-import com.switchfully.parkshark.api.dto.DivisionDtoRequest;
-import com.switchfully.parkshark.api.dto.DivisionDtoResponse;
+import com.switchfully.parkshark.dto.DivisionDtoRequest;
+import com.switchfully.parkshark.dto.DivisionDtoResponse;
 import com.switchfully.parkshark.domain.Division;
 import com.switchfully.parkshark.repositories.DivisionRepository;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;

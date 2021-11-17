@@ -1,19 +1,20 @@
-package com.switchfully.parkshark.api.dto;
+package com.switchfully.parkshark.dto;
 
-import com.switchfully.parkshark.domain.Address;
+import com.switchfully.parkshark.services.mapper.AddressDtoRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Builder
-@Data
+@Data @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PersonDtoRequest {
   String firstName;
   String lastName;
   String email;
-  Address address;
+  AddressDtoRequest addressDtoRequest;
   String phoneNumberMobile;
   String phoneNumberLocal;
   String licencePlateNumber;

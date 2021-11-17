@@ -1,10 +1,13 @@
 package com.switchfully.parkshark.services;
 
-import com.switchfully.parkshark.api.dto.PersonDtoRequest;
-import com.switchfully.parkshark.api.dto.PersonDtoResponse;
+import com.switchfully.parkshark.dto.PersonDtoRequest;
+import com.switchfully.parkshark.dto.PersonDtoResponse;
+import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.mapper.PersonMapper;
 import java.util.List;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +26,10 @@ public class PersonService {
     return null;
   }
 
-
+@Cascade(CascadeType.ALL)
   public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
-    personRepository.save(personMapper.toEntity(personDtoRequest));
-    return personMapper.toResponse(personDtoRequest);
+   Person person =   personRepository.save(personMapper.toEntity(personDtoRequest));
+    return  personMapper.toResponse(person);
   }
 
   public PersonDtoRequest getMemberById(long id) {

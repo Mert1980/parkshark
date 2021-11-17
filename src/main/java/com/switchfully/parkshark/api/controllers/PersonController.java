@@ -1,8 +1,8 @@
 package com.switchfully.parkshark.api.controllers;
 
 
-import com.switchfully.parkshark.api.dto.PersonDtoRequest;
-import com.switchfully.parkshark.api.dto.PersonDtoResponse;
+import com.switchfully.parkshark.dto.PersonDtoRequest;
+import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.services.PersonService;
 import com.switchsecure.SecurityGuard;
 import com.switchsecure.SecurityGuard.ApiUserRole;
@@ -40,9 +40,10 @@ public class PersonController {
     return personService.getMemberById(id);
   }
 
-  @PostMapping(consumes = "application/json")
+  @PostMapping(consumes = "application/json", produces = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
   public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest){
+    System.out.println(personDtoRequest.toString());
     return personService.registerMember(personDtoRequest);
   }
 
