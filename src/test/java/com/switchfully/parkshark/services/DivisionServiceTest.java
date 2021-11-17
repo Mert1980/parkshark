@@ -1,34 +1,27 @@
 package com.switchfully.parkshark.services;
 
-import com.switchfully.parkshark.dto.DivisionDtoRequest;
 import com.switchfully.parkshark.domain.Division;
 import com.switchfully.parkshark.domain.Person;
+import com.switchfully.parkshark.dto.DivisionDtoRequest;
+import com.switchfully.parkshark.dto.DivisionDtoResponse;
 import com.switchfully.parkshark.repositories.DivisionRepository;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class DivisionServiceTest {
 
 
-    private final DivisionService divisionService;
+    private DivisionService divisionService;
     private DivisionRepository divisionRepositoryMock;
-    private final DivisionMapper divisionMapper;
-
-    @Autowired
-    DivisionServiceTest(DivisionService divisionService, DivisionMapper divisionMapper) {
-        this.divisionService = divisionService;
-        this.divisionMapper = divisionMapper;
-    }
-
+    private DivisionMapper divisionMapperMock;
 
     @BeforeEach
     void setUp() {
         divisionRepositoryMock = Mockito.mock(DivisionRepository.class);
+        divisionMapperMock = Mockito.mock(DivisionMapper.class);
+        divisionService = new DivisionService(divisionRepositoryMock, divisionMapperMock);
     }
 
     @Test
@@ -39,9 +32,18 @@ class DivisionServiceTest {
                 .directorId(Person.builder().id(1L).build())
                 .build();
 
-        Division division = divisionMapper.toEntity(divisionToSave);
+        DivisionDtoResponse divisionDtoResponse = DivisionDtoResponse.builder()
+                .divisionId(1L)
+                .directorId(1L)
+                .name("Test")
+                .originalName("Test")
+                .build();
 
         divisionService.save(divisionToSave);
+        Division division = divisionMapperMock.toEntity(divisionToSave);
+
+        Mockito.when(divisionMapperMock.toResponse(division)).thenReturn(divisionDtoResponse);
+
 
         Mockito.verify(divisionRepositoryMock).save(division);
     }

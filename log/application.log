@@ -147,3 +147,37 @@ Consider defining a bean of type 'com.switchfully.parkshark.services.mapper.Pers
 2021-11-17 12:19:26.924  INFO 22764 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-11-17 12:19:26.926  INFO 22764 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-11-17 12:19:26.931  INFO 22764 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-11-17 13:01:51.973  INFO 10852 --- [main] c.s.p.services.DivisionServiceTest       : Starting DivisionServiceTest using Java 17.0.1 on DESKTOP-4PUG8OP with PID 10852 (started by Thomas DeMaesschalck in C:\switchfully\parkshark)
+2021-11-17 13:01:51.977  INFO 10852 --- [main] c.s.p.services.DivisionServiceTest       : No active profile set, falling back to default profiles: default
+2021-11-17 13:01:53.913  INFO 10852 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-17 13:01:54.081  INFO 10852 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 137 ms. Found 2 JPA repository interfaces.
+2021-11-17 13:01:55.371  INFO 10852 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-11-17 13:01:56.346  INFO 10852 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-11-17 13:01:56.495  INFO 10852 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-17 13:01:56.648  INFO 10852 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-17 13:01:56.927  INFO 10852 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-17 13:01:57.167  INFO 10852 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-11-17 13:01:58.339  INFO 10852 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-17 13:01:58.352  INFO 10852 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 13:01:59.356  WARN 10852 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-17 13:02:01.787  INFO 10852 --- [main] c.s.p.services.DivisionServiceTest       : Started DivisionServiceTest in 10.549 seconds (JVM running for 12.984)
+2021-11-17 13:02:03.242  INFO 10852 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 13:02:03.245  INFO 10852 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-11-17 13:02:03.269  INFO 10852 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-11-17 14:31:20.149  INFO 18496 --- [main] c.s.p.services.DivisionServiceTest       : Starting DivisionServiceTest using Java 17.0.1 on DESKTOP-4PUG8OP with PID 18496 (started by Thomas DeMaesschalck in C:\switchfully\parkshark)
+2021-11-17 14:31:20.152  INFO 18496 --- [main] c.s.p.services.DivisionServiceTest       : No active profile set, falling back to default profiles: default
+2021-11-17 14:31:20.933  INFO 18496 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-17 14:31:21.025  INFO 18496 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 82 ms. Found 2 JPA repository interfaces.
+2021-11-17 14:31:21.511  INFO 18496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-11-17 14:31:22.186  INFO 18496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-11-17 14:31:22.241  INFO 18496 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-17 14:31:22.290  INFO 18496 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-17 14:31:22.417  INFO 18496 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-17 14:31:22.537  INFO 18496 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-11-17 14:31:23.480  INFO 18496 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-17 14:31:23.488  INFO 18496 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 14:31:24.273  WARN 18496 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-17 14:31:25.780  INFO 18496 --- [main] c.s.p.services.DivisionServiceTest       : Started DivisionServiceTest in 5.92 seconds (JVM running for 7.643)
+2021-11-17 14:31:26.348  INFO 18496 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 14:31:26.352  INFO 18496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-11-17 14:31:26.365  INFO 18496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
