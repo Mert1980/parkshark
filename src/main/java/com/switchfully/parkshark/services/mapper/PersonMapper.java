@@ -3,6 +3,7 @@ package com.switchfully.parkshark.services.mapper;
 import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class PersonMapper {
         .phoneNumberMobile(personDtoRequest.getPhoneNumberMobile())
         .phoneNumberLocal(personDtoRequest.getPhoneNumberLocal())
         .licensePlateNumber(personDtoRequest.getLicencePlateNumber())
-        .registrationDate(LocalDateTime.parse(personDtoRequest.getRegistrationDate()))
+        .registrationDate(LocalDate.parse(personDtoRequest.getRegistrationDate()))
         .build();
   }
 

@@ -2,6 +2,7 @@ package com.switchfully.parkshark.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -40,9 +40,9 @@ public class Person {
     @Column(name =  "license_plate_number")
     private String licensePlateNumber;
     @Column(name = "registration_date", columnDefinition = "TIMESTAMP")
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id_fk")
     private Address address;
 
@@ -55,6 +55,6 @@ public class Person {
         this.phoneNumberLocal = phoneNumberLocal;
         this.phoneNumberMobile = phoneNumberMobile;
         this.licensePlateNumber = licensePlateNumber;
-        this.registrationDate = LocalDateTime.now();
+        this.registrationDate = LocalDate.now();
     }
 }
