@@ -4,8 +4,10 @@ import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.repositories.PersonRepository;
+import com.switchfully.parkshark.services.exceptions.PersonNotFoundException;
 import com.switchfully.parkshark.services.mapper.PersonMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,11 @@ public class PersonService {
     this.personMapper = personMapper;
   }
 
-  public List<PersonDtoRequest> getAllMembers() {
-    return null;
+  public List<PersonDtoResponse> getAllMembers() {
+    return personRepository.findAll()
+        .stream()
+        .map(person -> personMapper.toResponse(person))
+        .collect(Collectors.toList());
   }
 
 @Cascade(CascadeType.ALL)
