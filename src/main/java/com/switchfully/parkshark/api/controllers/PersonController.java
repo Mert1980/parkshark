@@ -31,13 +31,13 @@ public class PersonController {
 
   @GetMapping(produces = "application/json")
   @ResponseStatus(value = HttpStatus.OK)
-  public List<PersonDtoRequest> getAllMembers() {
+  public List<PersonDtoResponse> getAllMembers() {
     return personService.getAllMembers();
   }
 
   @GetMapping( path ="/{id}" , produces = "application/json")
   @ResponseStatus(value = HttpStatus.OK)
-  public PersonDtoRequest getMemberById(long id) {
+  public PersonDtoResponse getMemberById(@PathVariable long id) {
     return personService.getMemberById(id);
   }
 
