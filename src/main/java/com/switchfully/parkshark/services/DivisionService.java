@@ -1,7 +1,7 @@
 package com.switchfully.parkshark.services;
 
-import com.switchfully.parkshark.api.dto.CreateDivisionRequest;
-import com.switchfully.parkshark.api.dto.CreateDivisionResponse;
+import com.switchfully.parkshark.api.dto.DivisionDtoRequest;
+import com.switchfully.parkshark.api.dto.DivisionDtoResponse;
 import com.switchfully.parkshark.domain.Division;
 import com.switchfully.parkshark.repositories.DivisionRepository;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;
@@ -20,7 +20,7 @@ public class DivisionService {
         this.divisionMapper = divisionMapper;
     }
 
-    public CreateDivisionResponse save(CreateDivisionRequest createDivisionDTO) {
+    public DivisionDtoResponse save(DivisionDtoRequest createDivisionDTO) {
         Division division = divisionMapper.toEntity(createDivisionDTO);
         return divisionMapper.toResponse(divisionRepository.save(division));
     }

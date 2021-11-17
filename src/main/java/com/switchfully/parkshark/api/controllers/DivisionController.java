@@ -1,7 +1,7 @@
 package com.switchfully.parkshark.api.controllers;
 
-import com.switchfully.parkshark.api.dto.CreateDivisionRequest;
-import com.switchfully.parkshark.api.dto.CreateDivisionResponse;
+import com.switchfully.parkshark.api.dto.DivisionDtoRequest;
+import com.switchfully.parkshark.api.dto.DivisionDtoResponse;
 import com.switchfully.parkshark.services.DivisionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class DivisionController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateDivisionResponse saveDivision(@RequestBody CreateDivisionRequest createDivisionRequest) {
+    public DivisionDtoResponse saveDivision(@RequestBody DivisionDtoRequest createDivisionRequest) {
         logger.info("Register new division " + createDivisionRequest.getName());
         return divisionService.save(createDivisionRequest);
     }
