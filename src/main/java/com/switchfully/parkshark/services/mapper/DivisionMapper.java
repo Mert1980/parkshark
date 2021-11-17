@@ -1,9 +1,12 @@
 package com.switchfully.parkshark.services.mapper;
 
+import com.switchfully.parkshark.domain.Division;
 import com.switchfully.parkshark.dto.DivisionDtoRequest;
 import com.switchfully.parkshark.dto.DivisionDtoResponse;
-import com.switchfully.parkshark.domain.Division;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class DivisionMapper {
@@ -24,5 +27,9 @@ public class DivisionMapper {
                 .originalName(division.getOriginalName())
                 .directorId(division.getDirector().getId())
                 .build();
+    }
+
+    public List<DivisionDtoResponse> toResponse(List<Division> divisions) {
+        return divisions.stream().map(this::toResponse).collect(Collectors.toList());
     }
 }
