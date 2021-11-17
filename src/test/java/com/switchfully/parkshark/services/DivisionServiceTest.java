@@ -29,7 +29,7 @@ class DivisionServiceTest {
         DivisionDtoRequest divisionToSave = DivisionDtoRequest.builder()
                 .name("test")
                 .originalName("test")
-                .directorId(Person.builder().id(1L).build())
+                .directorId(1L)
                 .build();
 
         DivisionDtoResponse divisionDtoResponse = DivisionDtoResponse.builder()
