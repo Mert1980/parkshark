@@ -181,3 +181,90 @@ Consider defining a bean of type 'com.switchfully.parkshark.services.mapper.Pers
 2021-11-17 14:31:26.348  INFO 18496 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-11-17 14:31:26.352  INFO 18496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-11-17 14:31:26.365  INFO 18496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-11-17 15:04:11.479  INFO 14060 --- [main] c.s.parkshark.ParksharkApplication       : Starting ParksharkApplication using Java 17.0.1 on DESKTOP-4PUG8OP with PID 14060 (C:\switchfully\parkshark\target\classes started by Thomas DeMaesschalck in C:\switchfully\parkshark)
+2021-11-17 15:04:11.490  INFO 14060 --- [main] c.s.parkshark.ParksharkApplication       : No active profile set, falling back to default profiles: default
+2021-11-17 15:04:12.616  INFO 14060 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-17 15:04:12.682  INFO 14060 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 2 JPA repository interfaces.
+2021-11-17 15:04:13.266  INFO 14060 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-11-17 15:04:13.281  INFO 14060 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-11-17 15:04:13.282  INFO 14060 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-11-17 15:04:13.418  INFO 14060 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-11-17 15:04:13.419  INFO 14060 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1818 ms
+2021-11-17 15:04:13.552  INFO 14060 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-11-17 15:04:14.171  INFO 14060 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-11-17 15:04:14.206  INFO 14060 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-17 15:04:14.239  INFO 14060 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-17 15:04:14.465  INFO 14060 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-17 15:04:14.576  INFO 14060 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-11-17 15:04:15.414  INFO 14060 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-17 15:04:15.422  INFO 14060 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 15:04:15.779  WARN 14060 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-17 15:04:16.548  INFO 14060 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-11-17 15:04:16.560  INFO 14060 --- [main] c.s.parkshark.ParksharkApplication       : Started ParksharkApplication in 7.054 seconds (JVM running for 9.571)
+2021-11-17 15:04:28.763  INFO 14060 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-11-17 15:04:28.764  INFO 14060 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-11-17 15:04:28.764  INFO 14060 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-11-17 15:04:29.491  INFO 14060 --- [http-nio-8080-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 316 ms
+2021-11-17 15:04:35.186  INFO 14060 --- [http-nio-8080-exec-9] com.switchsecure.SecurityGate            : Only ADMIN can access this REST endpoint
+2021-11-17 15:04:37.611  INFO 14060 --- [http-nio-8080-exec-10] com.switchsecure.SecurityGate            : Only ADMIN can access this REST endpoint
+2021-11-17 15:06:44.032  INFO 14060 --- [http-nio-8080-exec-8] com.switchsecure.SecurityGate            : Only ADMIN can access this REST endpoint
+2021-11-17 15:06:44.043  INFO 14060 --- [http-nio-8080-exec-8] c.s.p.a.controllers.DivisionController   : Retrieved all divisions
+2021-11-17 15:13:04.641  INFO 14060 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 15:13:04.643  INFO 14060 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-11-17 15:13:04.653  INFO 14060 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-11-17 15:13:13.566  INFO 2892 --- [main] c.s.parkshark.ParksharkApplication       : Starting ParksharkApplication using Java 17.0.1 on DESKTOP-4PUG8OP with PID 2892 (C:\switchfully\parkshark\target\classes started by Thomas DeMaesschalck in C:\switchfully\parkshark)
+2021-11-17 15:13:13.570  INFO 2892 --- [main] c.s.parkshark.ParksharkApplication       : No active profile set, falling back to default profiles: default
+2021-11-17 15:13:14.717  INFO 2892 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-17 15:13:14.799  INFO 2892 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 2 JPA repository interfaces.
+2021-11-17 15:13:15.493  INFO 2892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-11-17 15:13:15.505  INFO 2892 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-11-17 15:13:15.505  INFO 2892 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-11-17 15:13:15.661  INFO 2892 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-11-17 15:13:15.662  INFO 2892 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2029 ms
+2021-11-17 15:13:15.843  INFO 2892 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-11-17 15:13:16.499  INFO 2892 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-11-17 15:13:16.558  INFO 2892 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-17 15:13:16.596  INFO 2892 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-17 15:13:16.758  INFO 2892 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-17 15:13:16.913  INFO 2892 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-11-17 15:13:18.025  INFO 2892 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-17 15:13:18.036  INFO 2892 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 15:13:18.515  WARN 2892 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-17 15:13:19.500  INFO 2892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-11-17 15:13:19.516  INFO 2892 --- [main] c.s.parkshark.ParksharkApplication       : Started ParksharkApplication in 6.652 seconds (JVM running for 7.491)
+2021-11-17 15:13:27.907  INFO 2892 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-11-17 15:13:27.908  INFO 2892 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-11-17 15:13:27.910  INFO 2892 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2021-11-17 15:13:28.476  INFO 2892 --- [http-nio-8080-exec-3] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 264 ms
+2021-11-17 15:15:01.813  INFO 2892 --- [http-nio-8080-exec-9] com.switchsecure.SecurityGate            : Only ADMIN can access this REST endpoint
+2021-11-17 15:15:01.823  INFO 2892 --- [http-nio-8080-exec-9] c.s.p.a.controllers.DivisionController   : Retrieved all divisions
+2021-11-17 15:15:17.051  INFO 2892 --- [http-nio-8080-exec-1] c.s.p.a.controllers.DivisionController   : Retrieved division id 2
+2021-11-17 15:15:20.584  INFO 2892 --- [http-nio-8080-exec-2] c.s.p.a.controllers.DivisionController   : Retrieved division id 2
+2021-11-17 15:15:42.048  INFO 2892 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 15:15:42.049  INFO 2892 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-11-17 15:15:42.054  INFO 2892 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-11-17 15:15:47.651  INFO 4520 --- [main] c.s.parkshark.ParksharkApplication       : Starting ParksharkApplication using Java 17.0.1 on DESKTOP-4PUG8OP with PID 4520 (C:\switchfully\parkshark\target\classes started by Thomas DeMaesschalck in C:\switchfully\parkshark)
+2021-11-17 15:15:47.654  INFO 4520 --- [main] c.s.parkshark.ParksharkApplication       : No active profile set, falling back to default profiles: default
+2021-11-17 15:15:48.592  INFO 4520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-11-17 15:15:48.654  INFO 4520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 2 JPA repository interfaces.
+2021-11-17 15:15:49.254  INFO 4520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-11-17 15:15:49.261  INFO 4520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-11-17 15:15:49.261  INFO 4520 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-11-17 15:15:49.390  INFO 4520 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-11-17 15:15:49.390  INFO 4520 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1700 ms
+2021-11-17 15:15:49.540  INFO 4520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-11-17 15:15:50.146  INFO 4520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-11-17 15:15:50.182  INFO 4520 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-11-17 15:15:50.217  INFO 4520 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-11-17 15:15:50.308  INFO 4520 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-11-17 15:15:50.408  INFO 4520 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-11-17 15:15:51.202  INFO 4520 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-11-17 15:15:51.209  INFO 4520 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-11-17 15:15:51.601  WARN 4520 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-11-17 15:15:52.349  INFO 4520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-11-17 15:15:52.358  INFO 4520 --- [main] c.s.parkshark.ParksharkApplication       : Started ParksharkApplication in 5.106 seconds (JVM running for 5.873)
+2021-11-17 15:15:54.711  INFO 4520 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-11-17 15:15:54.713  INFO 4520 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-11-17 15:15:54.714  INFO 4520 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-11-17 15:15:54.733  INFO 4520 --- [http-nio-8080-exec-2] com.switchsecure.SecurityGate            : Only ADMIN can access this REST endpoint
+2021-11-17 15:16:14.393  INFO 4520 --- [http-nio-8080-exec-3] com.switchsecure.SecurityGate            : Only ADMIN can access this REST endpoint

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/divisions")
 public class DivisionController {
@@ -20,6 +22,22 @@ public class DivisionController {
     @Autowired
     public DivisionController(DivisionService divisionService) {
         this.divisionService = divisionService;
+    }
+
+    @GetMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
+    public List<DivisionDtoResponse> getAllDivisions() {
+        logger.info("Retrieved all divisions");
+        return divisionService.getAllDivisions();
+    }
+
+    @GetMapping(produces = "application/json", path = "{divisionId}")
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
+    public DivisionDtoResponse getDivisionById(@PathVariable("divisionId") Long divisionId) {
+        logger.info("Retrieved division id " + divisionId);
+        return divisionService.getDivisionById(divisionId);
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
