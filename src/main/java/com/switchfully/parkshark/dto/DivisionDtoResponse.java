@@ -14,4 +14,5 @@ public class DivisionDtoResponse {
     String name;
     String originalName;
     Long directorId;
+    Long parentDivisionId;
 }

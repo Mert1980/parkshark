@@ -3,6 +3,7 @@ package com.switchfully.parkshark.api.controllers;
 import com.switchfully.parkshark.dto.DivisionDtoRequest;
 import com.switchfully.parkshark.dto.DivisionDtoResponse;
 import com.switchfully.parkshark.services.DivisionService;
+import com.switchfully.parkshark.services.mapper.DivisionMapper;
 import com.switchsecure.SecurityGuard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +18,13 @@ import java.util.List;
 public class DivisionController {
 
     private final DivisionService divisionService;
+    private final DivisionMapper divisionMapper;
     private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
 
     @Autowired
-    public DivisionController(DivisionService divisionService) {
+    public DivisionController(DivisionService divisionService, DivisionMapper divisionMapper) {
         this.divisionService = divisionService;
+        this.divisionMapper = divisionMapper;
     }
 
     @GetMapping(produces = "application/json")

@@ -1,7 +1,9 @@
 package com.switchfully.parkshark.domain;
 
-import jdk.jfr.Enabled;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -27,9 +29,12 @@ public class Division {
     String originalName;
 
     @OneToOne
-    @JoinColumn(name="director_id")
+    @JoinColumn(name = "director_id")
     Person director;
 
+    @OneToOne
+    @JoinColumn(name = "parent_division_id")
+    Division parentDivision;
 
 
 }
