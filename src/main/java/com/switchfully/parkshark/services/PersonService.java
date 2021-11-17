@@ -26,14 +26,14 @@ public class PersonService {
 
   public List<PersonDtoResponse> getAllMembers() {
     return personRepository.findAll()
-        .stream()
-        .map(person -> personMapper.toResponse(person))
-        .collect(Collectors.toList());
+            .stream()
+            .map(person -> personMapper.toResponse(person))
+            .collect(Collectors.toList());
   }
 
-@Cascade(CascadeType.ALL)
+  @Cascade(CascadeType.ALL)
   public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
-   Person person =   personRepository.save(personMapper.toEntity(personDtoRequest));
+    Person person =   personRepository.save(personMapper.toEntity(personDtoRequest));
     return  personMapper.toResponse(person);
   }
 
