@@ -16,7 +16,7 @@ import lombok.Builder;
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
 @Entity
-@Table(name = "address")
+@Table(name = "address", schema = "parkshark")
 public class Address {
 
   @Id
