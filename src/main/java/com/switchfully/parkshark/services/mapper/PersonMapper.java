@@ -3,8 +3,11 @@ package com.switchfully.parkshark.services.mapper;
 import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.api.dto.PersonDtoRequest;
 import com.switchfully.parkshark.api.dto.PersonDtoResponse;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
+@Component
 public class PersonMapper {
 
   public Person toEntity(PersonDtoRequest personDtoRequest) {
