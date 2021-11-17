@@ -1,5 +1,6 @@
 package com.switchfully.parkshark.dto;
 
+import com.switchfully.parkshark.domain.Division;
 import com.switchfully.parkshark.domain.Person;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,5 +14,6 @@ public class DivisionDtoRequest {
 
     String name;
     String originalName;
-    Person directorId;
+    Long directorId;
+    Long parentDivisionId;
 }
