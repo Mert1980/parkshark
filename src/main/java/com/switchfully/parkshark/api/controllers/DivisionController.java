@@ -47,4 +47,6 @@ public class DivisionController {
         logger.info("Register new division " + createDivisionRequest.getName());
         return divisionService.save(createDivisionRequest);
     }
+
+
 }

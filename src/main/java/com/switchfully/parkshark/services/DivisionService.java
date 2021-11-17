@@ -8,6 +8,9 @@ import com.switchfully.parkshark.services.mapper.DivisionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DivisionService {
 
@@ -25,4 +28,18 @@ public class DivisionService {
         return divisionMapper.toResponse(divisionRepository.save(division));
     }
 
+    public List<DivisionDtoResponse> getAllDivisions() {
+        return divisionMapper.toResponse(divisionRepository.findAll());
+    }
+
+
+    public DivisionDtoResponse getDivisionById(Long divisionId) {
+        Optional<Division> divisionOptional = divisionRepository.findById(divisionId);
+
+        if (divisionOptional.isEmpty()) {
+            throw new IllegalArgumentException("Id not found");
+        }
+
+        return divisionMapper.toResponse(divisionOptional.get());
+    }
 }
