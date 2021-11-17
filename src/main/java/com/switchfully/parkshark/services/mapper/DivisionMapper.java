@@ -26,8 +26,8 @@ public class DivisionMapper {
 
 
     public Division toEntity(DivisionDtoRequest createDivisionDTO) {
-        Division parentDivision = divisionService.getDivisionById(createDivisionDTO.getParentDivisionId());
-        Person director = personService.getMemberById(createDivisionDTO.getDirectorId());
+        Division parentDivision = divisionRepository.getById(createDivisionDTO.getParentDivisionId());
+        Person director = personRepository.getById(createDivisionDTO.getDirectorId());
 
         Division division = new Division();
         division.setName(createDivisionDTO.getName());

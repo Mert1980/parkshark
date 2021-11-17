@@ -33,13 +33,13 @@ public class DivisionService {
     }
 
 
-    public Division getDivisionById(Long divisionId) {
+    public DivisionDtoResponse getDivisionById(Long divisionId) {
         Optional<Division> divisionOptional = divisionRepository.findById(divisionId);
 
         if (divisionOptional.isEmpty()) {
             throw new IllegalArgumentException("Id not found");
         }
 
-        return divisionOptional.get();
+        return divisionMapper.toResponse(divisionOptional.get());
     }
 }
