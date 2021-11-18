@@ -33,10 +33,13 @@ public class DivisionService {
 
         personService.assertPersonId(createDivisionDTO.getDirectorId());
 
+        if (createDivisionDTO.getParentDivisionId() != null) {
+            assertDivisionId(createDivisionDTO.getParentDivisionId());
+        }
+
         Division division = divisionMapper.toEntity(createDivisionDTO);
 
         if (createDivisionDTO.getParentDivisionId() != null) {
-            assertDivisionId(createDivisionDTO.getParentDivisionId());
             Division parentDivision = divisionRepository.getById(createDivisionDTO.getParentDivisionId());
             division.setParentDivision(parentDivision);
         }
