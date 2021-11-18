@@ -66,7 +66,7 @@ create table parkshark.parkinglot
             primary key
 );
 
-alter table parkshark.parkinglot
+alter table parkshark.parking_lot
     owner to student;
 
 create table parkshark.membership
@@ -85,7 +85,7 @@ create table parkshark.parkinglot_allocation
             primary key,
     parkinglot_id_fk         integer
         constraint parkinglot_id_fk
-            references parkshark.parkinglot,
+            references parkshark.parking_lot,
     member_id                integer
         constraint member_id_fk
             references parkshark.person,

@@ -64,13 +64,4 @@ public class PersonService {
         }
     }
 
-    private void assertIsNotNullOrEmpty(PersonDtoRequest personDtoRequest) {
-//        if (Stream.of(personDtoRequest.getFirstName(),
-//                        personDtoRequest.getLastName())
-//                .anyMatch(Objects::isNull)) {
-//            throw new IllegalArgumentException("All fields are required")
-//
-//        }
-       // Arrays.stream(PersonDtoRequest.class.getDeclaredFields()).anyMatch(str -> str.toString().isEmpty());
-    }
 }
