@@ -25,7 +25,7 @@ public class ParkingLotDtoRequest {
     @NotBlank @NotNull
     Double pricePerHour;
     @NotBlank @NotNull
-    Integer maxCapacity;
+    Integer capacity;
     @NotBlank @NotNull
     Long contactId;
     @Valid

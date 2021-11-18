@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 public class ParkingLotDtoResponse {
     Long id;
     String name;
-    String parkingCategory;
+    String parkingLotCategory;
     Double pricePerHour;
     Integer capacity;
     Long contactId;
