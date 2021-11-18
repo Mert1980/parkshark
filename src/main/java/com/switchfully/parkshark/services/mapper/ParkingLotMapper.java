@@ -22,8 +22,16 @@ public class ParkingLotMapper {
         return entity;
     }
 
-    public ParkingLotDtoResponse toResponse(ParkingLot parkingLot) {
-        ParkingLotDtoResponse parkingLotDtoResponse = new ParkingLotDtoResponse();
-        return parkingLotDtoResponse;
+    // TODO divisonId not implemented
+    public ParkingLotDtoResponse toResponse(ParkingLot entity) {
+        return ParkingLotDtoResponse.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .parkingCategory(entity.getParkingLotCategory())
+                .pricePerHour(entity.getPricePerHour())
+                .maxCapacity(entity.getMaxCapacity())
+                .addressDtoResponse(addressMapper.toResponse(entity.getAddress()))
+        .build();
+
     }
 }

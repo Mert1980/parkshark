@@ -15,8 +15,8 @@ public class ParkingLotDtoResponse {
     String name;
     String parkingCategory;
     Double pricePerHour;
-    Integer capacity;
+    Integer maxCapacity;
     Long contactId;
-    AddressDtoResponse addressDtoRequest;
+    AddressDtoResponse addressDtoResponse;
     Long divisionId;
 }
