@@ -55,7 +55,7 @@ public class DivisionService {
   }
 
   private void assertValidDivisionIdAndIdNotNull(Long id) {
-      if (Boolean.FALSE == (id == null && divisionRepository.existsById(id)) ) {
+      if (id != null && !divisionRepository.existsById(id) ) {
           throw new DivisionNotFoundException(id);
       }
   }
