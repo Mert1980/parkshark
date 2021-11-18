@@ -8,7 +8,4 @@ public class PersonNotFoundException extends ResponseStatusException {
   public PersonNotFoundException(long id) {
     super(HttpStatus.NOT_FOUND, "Person with id " + id + " not found");
   }
-  public PersonNotFoundException(){
-    super(HttpStatus.NOT_FOUND);
-  }
 }

@@ -1,9 +1,10 @@
 package com.switchfully.parkshark.dto;
 
-import com.switchfully.parkshark.domain.Division;
-import com.switchfully.parkshark.domain.Person;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -12,8 +13,14 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DivisionDtoRequest {
 
+    @NotBlank @NotNull
     String name;
+
+    @NotBlank @NotNull
     String originalName;
+
+    @NotNull
     Long directorId;
+
     Long parentDivisionId;
 }

@@ -1,12 +1,8 @@
 package com.switchfully.parkshark.services.mapper;
 
 import com.switchfully.parkshark.domain.Division;
-import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.DivisionDtoRequest;
 import com.switchfully.parkshark.dto.DivisionDtoResponse;
-import com.switchfully.parkshark.repositories.DivisionRepository;
-import com.switchfully.parkshark.repositories.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,46 +11,31 @@ import java.util.stream.Collectors;
 @Component
 public class DivisionMapper {
 
-    @Autowired
-    private final DivisionRepository divisionRepository;
-    private final PersonRepository personRepository;
-
-    public DivisionMapper(DivisionRepository divisionRepository, PersonRepository personRepository) {
-        this.divisionRepository = divisionRepository;
-        this.personRepository = personRepository;
-    }
-
-
     public Division toEntity(DivisionDtoRequest createDivisionDTO) {
-        Division parentDivision = divisionRepository.getById(createDivisionDTO.getParentDivisionId());
-        Person director = personRepository.getById(createDivisionDTO.getDirectorId());
-
-        Division division = new Division();
-        division.setName(createDivisionDTO.getName());
-        division.setOriginalName(createDivisionDTO.getOriginalName());
-        division.setDirector(director);
-        division.setParentDivision(parentDivision);
-        return division;
+        Division entity = new Division();
+        entity.setName(createDivisionDTO.getName());
+        entity.setOriginalName(createDivisionDTO.getOriginalName());
+        return entity;
     }
 
 
-    public DivisionDtoResponse toResponse(Division division) {
-        Long parentDivisionId = 0L;
+    public DivisionDtoResponse toResponse(Division entity) {
+        Long parentDivisionId = null;
 
-        if (division.getParentDivision() != null) {
-            parentDivisionId = division.getParentDivision().getId();
+        if (entity.getParentDivision() != null) {
+            parentDivisionId = entity.getParentDivision().getId();
         }
 
         return DivisionDtoResponse.builder()
-                .divisionId(division.getId())
-                .name(division.getName())
-                .originalName(division.getOriginalName())
-                .directorId(division.getDirector().getId())
+                .divisionId(entity.getId())
+                .name(entity.getName())
+                .originalName(entity.getOriginalName())
+                .directorId(entity.getDirector().getId())
                 .parentDivisionId(parentDivisionId)
                 .build();
     }
 
-    public List<DivisionDtoResponse> toResponse(List<Division> divisions) {
-        return divisions.stream().map(this::toResponse).collect(Collectors.toList());
+    public List<DivisionDtoResponse> toResponse(List<Division> entities) {
+        return entities.stream().map(this::toResponse).collect(Collectors.toList());
     }
 }

@@ -5,24 +5,31 @@ import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.DivisionDtoRequest;
 import com.switchfully.parkshark.dto.DivisionDtoResponse;
 import com.switchfully.parkshark.repositories.DivisionRepository;
+import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-class DivisionServiceTest {
+import static org.mockito.ArgumentMatchers.any;
 
+class DivisionServiceTest {
 
     private DivisionService divisionService;
     private DivisionRepository divisionRepositoryMock;
     private DivisionMapper divisionMapperMock;
+    private PersonRepository personRepositoryMock;
+    private PersonService personServiceMock;
 
     @BeforeEach
     void setUp() {
         divisionRepositoryMock = Mockito.mock(DivisionRepository.class);
+        personRepositoryMock = Mockito.mock(PersonRepository.class);
         divisionMapperMock = Mockito.mock(DivisionMapper.class);
-        divisionService = new DivisionService(divisionRepositoryMock, divisionMapperMock);
+        personServiceMock = Mockito.mock(PersonService.class);
+        divisionService = new DivisionService(divisionRepositoryMock, personRepositoryMock, divisionMapperMock, personServiceMock);
     }
+
 
     @Test
     void whenAddingDivision_thenDivisionRepositorySaveMethodIsCalled() {
@@ -30,21 +37,39 @@ class DivisionServiceTest {
                 .name("test")
                 .originalName("test")
                 .directorId(1L)
+                .parentDivisionId(1L)
                 .build();
 
-        DivisionDtoResponse divisionDtoResponse = DivisionDtoResponse.builder()
-                .divisionId(1L)
-                .directorId(1L)
-                .name("Test")
-                .originalName("Test")
-                .build();
+        DivisionDtoResponse divisionDtoResponse =
+                DivisionDtoResponse.builder()
+                        .divisionId(1L)
+                        .directorId(1L)
+                        .name("Test")
+                        .originalName("Test")
+                        .parentDivisionId(1L)
+                        .build();
+
+        Person director = Person.builder().build();
+        Division parentDivision = new Division();
+        parentDivision.setId(1L);
+        parentDivision.setDirector(director);
+        parentDivision.setOriginalName("Test");
+        parentDivision.setName("Test");
+
+        Division subdivision = new Division();
+        subdivision.setId(2L);
+        subdivision.setDirector(director);
+        subdivision.setOriginalName("Test");
+        subdivision.setName("Test");
+
+        Mockito.when(divisionRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.of((parentDivision)));
+        Mockito.when(personRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(director));
+        Mockito.when(divisionMapperMock.toEntity(any(DivisionDtoRequest.class))).thenReturn(subdivision);
+        Mockito.when(divisionMapperMock.toResponse(any(Division.class))).thenReturn(divisionDtoResponse);
+        Mockito.when(divisionRepositoryMock.existsById(any(Long.class))).thenReturn(true);
 
         divisionService.save(divisionToSave);
-        Division division = divisionMapperMock.toEntity(divisionToSave);
 
-        Mockito.when(divisionMapperMock.toResponse(division)).thenReturn(divisionDtoResponse);
-
-
-        Mockito.verify(divisionRepositoryMock).save(division);
+        Mockito.verify(divisionRepositoryMock).save(any(Division.class));
     }
 }

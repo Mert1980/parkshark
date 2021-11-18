@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.switchfully.parkshark", "com.switchsecure", "com.switchfully.homemadesecurity"})
+@SpringBootApplication(scanBasePackages = {"com.switchfully.parkshark", "com.switchsecure"})
 public class ParksharkApplication{
 
     public static void main(String[] args) {
