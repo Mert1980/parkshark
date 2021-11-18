@@ -20,14 +20,18 @@ public class DivisionService {
     private final DivisionRepository divisionRepository;
     private final PersonRepository personRepository;
     private final DivisionMapper divisionMapper;
+    private final PersonService personService;
 
-    public DivisionService(DivisionRepository divisionRepository, PersonRepository personRepository, DivisionMapper divisionMapper) {
+    public DivisionService(DivisionRepository divisionRepository, PersonRepository personRepository, DivisionMapper divisionMapper, PersonService personService) {
         this.divisionRepository = divisionRepository;
         this.personRepository = personRepository;
         this.divisionMapper = divisionMapper;
+        this.personService = personService;
     }
 
     public DivisionDtoResponse save(DivisionDtoRequest createDivisionDTO) {
+
+        personService.assertPersonId(createDivisionDTO.getDirectorId());
 
         Division division = divisionMapper.toEntity(createDivisionDTO);
 

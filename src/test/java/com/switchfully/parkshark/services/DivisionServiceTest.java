@@ -19,13 +19,15 @@ class DivisionServiceTest {
     private DivisionRepository divisionRepositoryMock;
     private DivisionMapper divisionMapperMock;
     private PersonRepository personRepositoryMock;
+    private PersonService personServiceMock;
 
     @BeforeEach
     void setUp() {
         divisionRepositoryMock = Mockito.mock(DivisionRepository.class);
         personRepositoryMock = Mockito.mock(PersonRepository.class);
         divisionMapperMock = Mockito.mock(DivisionMapper.class);
-        divisionService = new DivisionService(divisionRepositoryMock, personRepositoryMock, divisionMapperMock);
+        personServiceMock = Mockito.mock(PersonService.class);
+        divisionService = new DivisionService(divisionRepositoryMock, personRepositoryMock, divisionMapperMock, personServiceMock);
     }
 
 

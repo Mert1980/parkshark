@@ -47,4 +47,10 @@ public class PersonService {
     public PersonDtoResponse deleteMember(long id) {
         return null;
     }
+
+    protected void assertPersonId(Long id) {
+        if (personRepository.findById(id).isEmpty()) {
+            throw new IllegalArgumentException("Person id does not exist");
+        }
+    }
 }
