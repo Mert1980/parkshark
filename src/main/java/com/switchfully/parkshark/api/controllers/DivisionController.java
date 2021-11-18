@@ -10,8 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -47,7 +50,11 @@ public class DivisionController {
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @SecurityGuard(ApiUserRole.ADMIN)
-    public DivisionDtoResponse saveDivision(@RequestBody DivisionDtoRequest divisionDtoRequest) {
+    public DivisionDtoResponse saveDivision(@Valid @RequestBody DivisionDtoRequest divisionDtoRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "All fields are required");
+        }
+
         logger.info("Register new division " + divisionDtoRequest.getName());
         return divisionService.save(divisionDtoRequest);
     }
