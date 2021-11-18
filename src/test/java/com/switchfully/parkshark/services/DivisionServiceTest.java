@@ -66,6 +66,7 @@ class DivisionServiceTest {
         Mockito.when(personRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(director));
         Mockito.when(divisionMapperMock.toEntity(any(DivisionDtoRequest.class))).thenReturn(subdivision);
         Mockito.when(divisionMapperMock.toResponse(any(Division.class))).thenReturn(divisionDtoResponse);
+        Mockito.when(divisionRepositoryMock.existsById(any(Long.class))).thenReturn(true);
 
         divisionService.save(divisionToSave);
 
