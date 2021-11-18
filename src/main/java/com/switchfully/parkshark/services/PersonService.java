@@ -38,8 +38,9 @@ public class PersonService {
 
     @Cascade(CascadeType.ALL)
     public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
-        Person person = personRepository.save(personMapper.toEntity(personDtoRequest));
-        return personMapper.toResponse(person);
+        assertValidPersonDTORequest(personDtoRequest);
+
+        return personMapper.toResponse(personRepository.save(personMapper.toEntity(personDtoRequest)));
     }
 
     public PersonDtoResponse getMemberById(long id) {
