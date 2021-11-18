@@ -44,6 +44,7 @@ public class ParkingLot {
 
     @Column(name = "capacity")
     int capacity;
+
     @Column(name = "price_per_hour")
     double pricePerHour;
 

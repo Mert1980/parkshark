@@ -6,6 +6,7 @@ import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
 import org.springframework.stereotype.Component;
 
+@Component
 public class ParkingLotMapper {
 
     private final AddressMapper addressMapper;
@@ -29,7 +30,7 @@ public class ParkingLotMapper {
         return ParkingLotDtoResponse.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .parkingCategory(entity.getParkingLotCategory())
+                .parkingLotCategory(String.valueOf(entity.getParkingLotCategory()))
                 .pricePerHour(entity.getPricePerHour())
                 .capacity(entity.getCapacity())
                 .addressDtoResponse(addressMapper.toResponse(entity.getAddress()))

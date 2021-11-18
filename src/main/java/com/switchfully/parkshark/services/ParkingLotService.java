@@ -4,7 +4,10 @@ import com.switchfully.parkshark.domain.ParkingLot;
 import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
 import com.switchfully.parkshark.repositories.ParkingLotRepository;
+import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.mapper.ParkingLotMapper;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +19,13 @@ import java.util.stream.Collectors;
 public class ParkingLotService {
 
     private final ParkingLotRepository parkingLotRepository;
+    private final PersonService personService;
     private final ParkingLotMapper parkingLotMapper;
 
-    public ParkingLotService(ParkingLotRepository parkingLotRepository, ParkingLotMapper parkingLotMapper) {
+    public ParkingLotService(ParkingLotRepository parkingLotRepository, ParkingLotMapper parkingLotMapper, PersonService personService) {
         this.parkingLotRepository = parkingLotRepository;
         this.parkingLotMapper = parkingLotMapper;
+        this.personService = personService;
     }
 
     public ParkingLotDtoResponse save(ParkingLotDtoRequest parkingLotDtoRequest) {
@@ -30,5 +35,13 @@ public class ParkingLotService {
         parkingLot.setContactPerson(personService.findMemberById(parkingLotDtoRequest.getContactId()));
                 
         return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLotMapper.toEntity(parkingLotDtoRequest)));
+    }
+
+    @Cascade(CascadeType.ALL)
+    public List<ParkingLotDtoResponse> findAll(){
+        return parkingLotRepository.findAll()
+                .stream()
+                .map(parkingLot -> parkingLotMapper.toResponse(parkingLot))
+                .collect(Collectors.toList());
     }
 }
