@@ -8,9 +8,6 @@ import com.switchfully.parkshark.repositories.DivisionRepository;
 import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.exceptions.DivisionNotFoundException;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DivisionService {
 
-  @Autowired
   private final DivisionRepository divisionRepository;
   private final PersonRepository personRepository;
   private final DivisionMapper divisionMapper;
   private final PersonService personService;
 
+  @Autowired
   public DivisionService(DivisionRepository divisionRepository, PersonRepository personRepository,
       DivisionMapper divisionMapper, PersonService personService) {
     this.divisionRepository = divisionRepository;

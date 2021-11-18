@@ -1,7 +1,7 @@
 package com.switchfully.parkshark.services.mapper;
 
-import com.switchfully.parkshark.dto.AddressDtoResponse;
 import com.switchfully.parkshark.domain.Address;
+import com.switchfully.parkshark.dto.AddressDtoResponse;
 import org.springframework.stereotype.Component;
 
 @Component
