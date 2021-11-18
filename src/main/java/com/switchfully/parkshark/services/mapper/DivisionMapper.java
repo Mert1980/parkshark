@@ -3,10 +3,9 @@ package com.switchfully.parkshark.services.mapper;
 import com.switchfully.parkshark.domain.Division;
 import com.switchfully.parkshark.dto.DivisionDtoRequest;
 import com.switchfully.parkshark.dto.DivisionDtoResponse;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 @Component
 public class DivisionMapper {

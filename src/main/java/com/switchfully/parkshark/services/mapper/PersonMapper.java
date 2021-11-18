@@ -4,7 +4,6 @@ import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
 import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

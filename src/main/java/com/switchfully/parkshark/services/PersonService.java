@@ -5,17 +5,13 @@ import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.exceptions.PersonNotFoundException;
 import com.switchfully.parkshark.services.mapper.PersonMapper;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Transactional

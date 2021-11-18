@@ -29,6 +29,10 @@ public class ParkingLot {
 
     @Column(name = "name")
     String name;
+
+    @Column(name = "parking_lot_category")
+    ParkingLotCategory parkingLotCategory;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id_fk")
     Address address;

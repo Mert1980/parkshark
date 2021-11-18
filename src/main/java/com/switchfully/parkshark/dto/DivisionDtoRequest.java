@@ -1,10 +1,13 @@
 package com.switchfully.parkshark.dto;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @NoArgsConstructor
