@@ -1,7 +1,6 @@
 package com.switchfully.parkshark.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -38,7 +36,7 @@ public class Person {
     @Column(name = "phonenumber_mobile")
     private String phoneNumberMobile;
     @Column(name =  "license_plate_number")
-    private String licensePlateNumber;
+    private String licencePlateNumber;
     @Column(name = "registration_date", columnDefinition = "TIMESTAMP")
     private LocalDate registrationDate;
 
@@ -54,7 +52,7 @@ public class Person {
         this.email = email;
         this.phoneNumberLocal = phoneNumberLocal;
         this.phoneNumberMobile = phoneNumberMobile;
-        this.licensePlateNumber = licensePlateNumber;
+        this.licencePlateNumber = licensePlateNumber;
         this.registrationDate = LocalDate.now();
     }
 }
