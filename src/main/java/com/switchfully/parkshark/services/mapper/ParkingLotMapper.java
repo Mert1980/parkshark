@@ -33,6 +33,7 @@ public class ParkingLotMapper {
                 .parkingLotCategory(String.valueOf(entity.getParkingLotCategory()))
                 .pricePerHour(entity.getPricePerHour())
                 .capacity(entity.getCapacity())
+                .contactId(entity.getContactPerson().getId())
                 .addressDtoResponse(addressMapper.toResponse(entity.getAddress()))
                 .build();
 

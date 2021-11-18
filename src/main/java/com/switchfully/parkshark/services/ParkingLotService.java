@@ -35,7 +35,7 @@ public class ParkingLotService {
         ParkingLot parkingLot = parkingLotMapper.toEntity(parkingLotDtoRequest);
         parkingLot.setContactPerson(personService.findMemberById(parkingLotDtoRequest.getContactId()));
                 
-        return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLotMapper.toEntity(parkingLotDtoRequest)));
+        return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLot));
     }
 
     public List<ParkingLotDtoResponse> findAll(){
