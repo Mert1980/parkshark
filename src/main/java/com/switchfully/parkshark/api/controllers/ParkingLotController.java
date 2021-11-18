@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/parkinglots")
 public class ParkingLotController {
     private final ParkingLotMapper parkingLotMapper;
     private final ParkingLotService parkingLotService;

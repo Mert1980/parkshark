@@ -33,7 +33,7 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.PERSIST)
     public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
         assertValidPersonDTORequest(personDtoRequest);
 
