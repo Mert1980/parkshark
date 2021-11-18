@@ -50,7 +50,7 @@ public class PersonService {
 
     protected void assertPersonId(Long id) {
         if (personRepository.findById(id).isEmpty()) {
-            throw new IllegalArgumentException("Person id does not exist");
+            throw new PersonNotFoundException(id);
         }
     }
 }

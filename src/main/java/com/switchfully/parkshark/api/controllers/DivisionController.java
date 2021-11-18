@@ -5,6 +5,7 @@ import com.switchfully.parkshark.dto.DivisionDtoResponse;
 import com.switchfully.parkshark.services.DivisionService;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;
 import com.switchsecure.SecurityGuard;
+import com.switchsecure.SecurityGuard.ApiUserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class DivisionController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
+    @SecurityGuard(ApiUserRole.ADMIN)
     public List<DivisionDtoResponse> getAllDivisions() {
         logger.info("Retrieved all divisions");
         return divisionService.getAllDivisions();
@@ -37,7 +38,7 @@ public class DivisionController {
 
     @GetMapping(produces = "application/json", path = "{divisionId}")
     @ResponseStatus(HttpStatus.OK)
-    @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
+    @SecurityGuard(ApiUserRole.ADMIN)
     public DivisionDtoResponse getDivisionById(@PathVariable("divisionId") Long divisionId) {
         logger.info("Retrieved division id " + divisionId);
         return divisionService.getDivisionById(divisionId);
@@ -45,10 +46,10 @@ public class DivisionController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
-    public DivisionDtoResponse saveDivision(@RequestBody DivisionDtoRequest createDivisionRequest) {
-        logger.info("Register new division " + createDivisionRequest.getName());
-        return divisionService.save(createDivisionRequest);
+    @SecurityGuard(ApiUserRole.ADMIN)
+    public DivisionDtoResponse saveDivision(@RequestBody DivisionDtoRequest divisionDtoRequest) {
+        logger.info("Register new division " + divisionDtoRequest.getName());
+        return divisionService.save(divisionDtoRequest);
     }
 
 

@@ -40,7 +40,7 @@ public class Person {
     @Column(name = "registration_date", columnDefinition = "TIMESTAMP")
     private LocalDate registrationDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id_fk")
     private Address address;
 
