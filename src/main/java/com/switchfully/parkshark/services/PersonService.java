@@ -48,7 +48,7 @@ public class PersonService {
         return null;
     }
 
-    protected void assertPersonId(Long id) {
+    protected void assertValidPersonId(Long id) {
         if (personRepository.findById(id).isEmpty()) {
             throw new PersonNotFoundException(id);
         }

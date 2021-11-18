@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 public class DivisionMapper {
 
     public Division toEntity(DivisionDtoRequest createDivisionDTO) {
-        Division division = new Division();
-        division.setName(createDivisionDTO.getName());
-        division.setOriginalName(createDivisionDTO.getOriginalName());
-        return division;
+        Division entity = new Division();
+        entity.setName(createDivisionDTO.getName());
+        entity.setOriginalName(createDivisionDTO.getOriginalName());
+        return entity;
     }
 
 
