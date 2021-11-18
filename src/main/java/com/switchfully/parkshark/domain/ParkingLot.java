@@ -38,7 +38,7 @@ public class ParkingLot {
     Person contactPerson;
 
     @Column(name = "capacity")
-    int maxCapacity;
+    int capacity;
     @Column(name = "price_per_hour")
     double pricePerHour;
 
