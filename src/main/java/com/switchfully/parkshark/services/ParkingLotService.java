@@ -28,6 +28,7 @@ public class ParkingLotService {
         this.personService = personService;
     }
 
+    @Cascade(CascadeType.PERSIST)
     public ParkingLotDtoResponse save(ParkingLotDtoRequest parkingLotDtoRequest) {
         personService.assertValidPersonId(parkingLotDtoRequest.getContactId());
 
@@ -37,7 +38,6 @@ public class ParkingLotService {
         return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLotMapper.toEntity(parkingLotDtoRequest)));
     }
 
-    @Cascade(CascadeType.ALL)
     public List<ParkingLotDtoResponse> findAll(){
         return parkingLotRepository.findAll()
                 .stream()
