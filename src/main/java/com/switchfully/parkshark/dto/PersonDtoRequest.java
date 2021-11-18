@@ -30,7 +30,6 @@ public class PersonDtoRequest {
 
   @NotBlank @NotNull
   String phoneNumberMobile;
-  @NotBlank @NotNull
   String phoneNumberLocal;
   @NotBlank @NotNull
   String licencePlateNumber;
