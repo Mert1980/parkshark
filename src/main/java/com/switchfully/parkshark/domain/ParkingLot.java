@@ -1,36 +1,30 @@
 package com.switchfully.parkshark.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity @Getter @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Entity
+@Getter
+@Builder
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "parking_lot", schema = "parkshark")
 public class ParkingLot {
     @Id
-    @SequenceGenerator(name = "parking_lot_id_seq", sequenceName = "parking_lot_id_seq", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parking_lot_id_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "parkinglot_id")
     long id;
 
     @Column(name = "name")
     String name;
 
-    @Column(name = "parking_lot_category")
+    @Column(name = "parking_lot_category", columnDefinition = "parking_category")
+    @Enumerated(EnumType.STRING)
     ParkingLotCategory parkingLotCategory;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -43,6 +37,7 @@ public class ParkingLot {
 
     @Column(name = "capacity")
     int capacity;
+
     @Column(name = "price_per_hour")
     double pricePerHour;
 

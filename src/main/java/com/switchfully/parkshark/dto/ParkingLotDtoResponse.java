@@ -13,9 +13,9 @@ import lombok.experimental.FieldDefaults;
 public class ParkingLotDtoResponse {
     Long id;
     String name;
-    String parkingCategory;
+    String parkingLotCategory;
     Double pricePerHour;
-    Integer maxCapacity;
+    Integer capacity;
     Long contactId;
     AddressDtoResponse addressDtoResponse;
     Long divisionId;

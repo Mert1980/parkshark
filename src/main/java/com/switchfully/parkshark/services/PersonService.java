@@ -1,5 +1,6 @@
 package com.switchfully.parkshark.services;
 
+import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.repositories.PersonRepository;
@@ -32,7 +33,7 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.PERSIST)
     public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
         assertValidPersonDTORequest(personDtoRequest);
 
@@ -40,8 +41,11 @@ public class PersonService {
     }
 
     public PersonDtoResponse getMemberById(long id) {
-
         return personMapper.toResponse(personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id)));
+    }
+
+    public Person findMemberById(long id){
+        return personRepository.getById(id);
     }
 
     public PersonDtoResponse deleteMember(long id) {
