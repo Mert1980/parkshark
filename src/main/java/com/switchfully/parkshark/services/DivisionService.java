@@ -20,21 +20,28 @@ public class DivisionService {
     private final DivisionRepository divisionRepository;
     private final PersonRepository personRepository;
     private final DivisionMapper divisionMapper;
+    private final PersonService personService;
 
-    public DivisionService(DivisionRepository divisionRepository, PersonRepository personRepository, DivisionMapper divisionMapper) {
+    public DivisionService(DivisionRepository divisionRepository, PersonRepository personRepository, DivisionMapper divisionMapper, PersonService personService) {
         this.divisionRepository = divisionRepository;
         this.personRepository = personRepository;
         this.divisionMapper = divisionMapper;
+        this.personService = personService;
     }
 
     public DivisionDtoResponse save(DivisionDtoRequest createDivisionDTO) {
-        assertDivisionId(createDivisionDTO.getParentDivisionId());
 
-        Division parentDivision = divisionRepository.getById(createDivisionDTO.getParentDivisionId());
-        Person director = personRepository.getById(createDivisionDTO.getDirectorId());
+        personService.assertPersonId(createDivisionDTO.getDirectorId());
 
         Division division = divisionMapper.toEntity(createDivisionDTO);
-        division.setParentDivision(parentDivision);
+
+        if (createDivisionDTO.getParentDivisionId() != null) {
+            assertDivisionId(createDivisionDTO.getParentDivisionId());
+            Division parentDivision = divisionRepository.getById(createDivisionDTO.getParentDivisionId());
+            division.setParentDivision(parentDivision);
+        }
+
+        Person director = personRepository.getById(createDivisionDTO.getDirectorId());
         division.setDirector(director);
 
         return divisionMapper.toResponse(divisionRepository.save(division));
@@ -43,7 +50,6 @@ public class DivisionService {
     public List<DivisionDtoResponse> getAllDivisions() {
         return divisionMapper.toResponse(divisionRepository.findAll());
     }
-
 
     public DivisionDtoResponse getDivisionById(Long divisionId) {
         Optional<Division> divisionOptional = divisionRepository.findById(divisionId);
