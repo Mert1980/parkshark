@@ -13,7 +13,10 @@ import lombok.experimental.FieldDefaults;
 public class PersonDtoRequest {
   String firstName;
   String lastName;
+  @NotBlank @NotNull
   String email;
+
+  @Valid
   AddressDtoRequest addressDtoRequest;
   String phoneNumberMobile;
   String phoneNumberLocal;
