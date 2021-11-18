@@ -1,6 +1,7 @@
 package com.switchfully.parkshark.services.mapper;
 
 import com.switchfully.parkshark.domain.ParkingLot;
+import com.switchfully.parkshark.domain.ParkingLotCategory;
 import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
 import org.springframework.stereotype.Component;
