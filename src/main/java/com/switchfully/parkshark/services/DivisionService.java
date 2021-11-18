@@ -28,13 +28,16 @@ public class DivisionService {
     }
 
     public DivisionDtoResponse save(DivisionDtoRequest createDivisionDTO) {
-        assertDivisionId(createDivisionDTO.getParentDivisionId());
-
-        Division parentDivision = divisionRepository.getById(createDivisionDTO.getParentDivisionId());
-        Person director = personRepository.getById(createDivisionDTO.getDirectorId());
 
         Division division = divisionMapper.toEntity(createDivisionDTO);
-        division.setParentDivision(parentDivision);
+
+        if (createDivisionDTO.getParentDivisionId() != null) {
+            assertDivisionId(createDivisionDTO.getParentDivisionId());
+            Division parentDivision = divisionRepository.getById(createDivisionDTO.getParentDivisionId());
+            division.setParentDivision(parentDivision);
+        }
+
+        Person director = personRepository.getById(createDivisionDTO.getDirectorId());
         division.setDirector(director);
 
         return divisionMapper.toResponse(divisionRepository.save(division));
@@ -43,7 +46,6 @@ public class DivisionService {
     public List<DivisionDtoResponse> getAllDivisions() {
         return divisionMapper.toResponse(divisionRepository.findAll());
     }
-
 
     public DivisionDtoResponse getDivisionById(Long divisionId) {
         Optional<Division> divisionOptional = divisionRepository.findById(divisionId);
