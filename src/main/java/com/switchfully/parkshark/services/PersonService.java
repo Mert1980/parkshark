@@ -41,8 +41,11 @@ public class PersonService {
     }
 
     public PersonDtoResponse getMemberById(long id) {
-
         return personMapper.toResponse(personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id)));
+    }
+
+    public Person findMemberById(long id){
+        return personRepository.getById(id);
     }
 
     public PersonDtoResponse deleteMember(long id) {
