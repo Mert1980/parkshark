@@ -3,6 +3,7 @@ package com.switchfully.parkshark.services.mapper;
 import com.switchfully.parkshark.domain.ParkingLot;
 import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
+import org.springframework.stereotype.Component;
 
 public class ParkingLotMapper {
 
@@ -13,13 +14,13 @@ public class ParkingLotMapper {
     }
 
     public ParkingLot toEntity(ParkingLotDtoRequest request) {
-        ParkingLot entity = ParkingLot.builder()
-                .name(request.getName()   .maxCapacity(request.getMaxCapacity())
+        return ParkingLot.builder()
+                .name(request.getName())
+                .capacity(request.getCapacity())
                 .pricePerHour(request.getPricePerHour())
-                .address(request.getAddressDtoRequest())
-                .parkingCategory(request.getParkingCategory())
+                .address(addressMapper.toEntity(request.getAddressDtoRequest()))
+                .parkingLotCategory(ParkingLotCategory.valueOf(request.getParkingLotCategory()))
                 .build();
-        return entity;
     }
 
     // TODO divisonId not implemented
@@ -29,9 +30,9 @@ public class ParkingLotMapper {
                 .name(entity.getName())
                 .parkingCategory(entity.getParkingLotCategory())
                 .pricePerHour(entity.getPricePerHour())
-                .maxCapacity(entity.getMaxCapacity())
+                .capacity(entity.getCapacity())
                 .addressDtoResponse(addressMapper.toResponse(entity.getAddress()))
-        .build();
+                .build();
 
     }
 }

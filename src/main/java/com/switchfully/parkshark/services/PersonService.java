@@ -1,5 +1,6 @@
 package com.switchfully.parkshark.services;
 
+import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.repositories.PersonRepository;

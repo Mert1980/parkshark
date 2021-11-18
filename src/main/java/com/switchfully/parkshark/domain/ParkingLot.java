@@ -14,16 +14,17 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity @Getter @Builder
+@Entity @Getter @Builder @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Table(name = "parking_lot", schema = "parkshark")
 public class ParkingLot {
     @Id
-    @SequenceGenerator(name = "parking_lot_id_seq", sequenceName = "parking_lot_id_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "parking_lot_id_seq", sequenceName = "parking_lot_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parking_lot_id_seq")
     long id;
 
