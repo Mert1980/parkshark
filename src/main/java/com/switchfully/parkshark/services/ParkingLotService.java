@@ -34,15 +34,29 @@ public class ParkingLotService {
 
         ParkingLot parkingLot = parkingLotMapper.toEntity(parkingLotDtoRequest);
         parkingLot.setContactPerson(personService.findMemberById(parkingLotDtoRequest.getContactId()));
-                
+
         return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLot));
     }
 
-    public List<ParkingLotDtoResponseForGetAll> findAll(){
+    public List<ParkingLotDtoResponseForGetAll> findAll() {
 
         return parkingLotRepository.findAll()
                 .stream()
                 .map(parkingLot -> parkingLotMapper.toResponse(parkingLot, parkingLot.getContactPerson()))
                 .collect(Collectors.toList());
     }
+
+    public ParkingLot getParkingLotById(Long parkingLotId) {
+        assertValidParkingLotId(parkingLotId);
+
+        return parkingLotRepository.getById(parkingLotId);
+    }
+
+    private void assertValidParkingLotId(Long parkingLotId) {
+        if (parkingLotRepository.findById(parkingLotId).isEmpty()) {
+            throw new IllegalArgumentException("Parking lot does not exist");
+        }
+    }
+
+
 }
