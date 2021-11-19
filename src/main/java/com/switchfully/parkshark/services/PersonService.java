@@ -58,7 +58,7 @@ public class PersonService {
         }
     }
 
-    private void assertValidPersonDTORequest(PersonDtoRequest personDtoRequest) {
+    protected void assertValidPersonDTORequest(PersonDtoRequest personDtoRequest) {
         if (!EmailValidator.getInstance().isValid(personDtoRequest.getEmail())) {
             throw new IllegalArgumentException("Invalid email for user");
         }
