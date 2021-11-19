@@ -72,7 +72,7 @@ public class DivisionService {
         return divisionMapper.toResponse(divisionOptional.get());
     }
 
-    private void assertDivisionId(Long id) {
+    private void assertValidDivisionId(Long id) {
         if (divisionRepository.findById(id).isEmpty()) {
             throw new IllegalArgumentException("Parent division does not exist");
         }
