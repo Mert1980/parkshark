@@ -1,5 +1,6 @@
 package com.switchfully.parkshark.services.mapper;
 
+import com.switchfully.parkshark.domain.Division;
 import com.switchfully.parkshark.domain.ParkingLot;
 import com.switchfully.parkshark.domain.ParkingLotCategory;
 import com.switchfully.parkshark.domain.Person;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Component;
 public class ParkingLotMapper {
 
     private final AddressMapper addressMapper;
+    private final DivisionMapper divisionMapper;
 
-    public ParkingLotMapper(AddressMapper addressMapper) {
+    public ParkingLotMapper(AddressMapper addressMapper, DivisionMapper divisionMapper) {
         this.addressMapper = addressMapper;
+        this.divisionMapper = divisionMapper;
     }
 
     public ParkingLot toEntity(ParkingLotDtoRequest request) {
