@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Address {
 
   @Id
-  @SequenceGenerator(name = "address_address_id_seq", sequenceName = "address_address_id_seq", initialValue = 1, allocationSize = 1)
+  @SequenceGenerator(name = "address_address_id_seq", sequenceName = "address_address_id_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_address_id_seq")
   private Long address_id;
   @Column(name = "streetname")

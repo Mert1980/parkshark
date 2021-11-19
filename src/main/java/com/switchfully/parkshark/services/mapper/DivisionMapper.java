@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DivisionMapper {
 
-    public Division toEntity(DivisionDtoRequest createDivisionDTO) {
+    public Division toEntity(DivisionDtoRequest request) {
         Division entity = new Division();
-        entity.setName(createDivisionDTO.getName());
-        entity.setOriginalName(createDivisionDTO.getOriginalName());
+        entity.setName(request.getName());
+        entity.setOriginalName(request.getOriginalName());
         return entity;
     }
 
