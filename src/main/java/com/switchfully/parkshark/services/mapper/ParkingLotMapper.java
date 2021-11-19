@@ -31,7 +31,7 @@ public class ParkingLotMapper {
     }
 
     // TODO divisonId not implemented
-    public ParkingLotDtoResponse toResponse(ParkingLot entity) {
+    public ParkingLotDtoResponse toResponse(ParkingLot entity, Division division) {
         return ParkingLotDtoResponse.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -40,16 +40,18 @@ public class ParkingLotMapper {
                 .capacity(entity.getCapacity())
                 .contactId(entity.getContactPerson().getId())
                 .addressDtoResponse(addressMapper.toResponse(entity.getAddress()))
+                .division(divisionMapper.toResponse(division))
                 .build();
     }
 
-    public ParkingLotDtoResponseForGetAll toResponse(ParkingLot entity, Person person) {
+    public ParkingLotDtoResponseForGetAll toResponse(ParkingLot entity, Person person, Division division) {
         return ParkingLotDtoResponseForGetAll.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .capacity(entity.getCapacity())
                 .email(person.getEmail())
                 .mobilePhoneNumber(person.getPhoneNumberMobile())
+                .division(divisionMapper.toResponse(division))
                 .build();
     }
 }

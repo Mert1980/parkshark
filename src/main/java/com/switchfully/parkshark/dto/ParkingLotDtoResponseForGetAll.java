@@ -17,4 +17,5 @@ public class ParkingLotDtoResponseForGetAll {
     Integer capacity;
     String email;
     String mobilePhoneNumber;
+    DivisionDtoResponse division;
 }

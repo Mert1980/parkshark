@@ -42,14 +42,17 @@ public class ParkingLotService {
         ParkingLot parkingLot = parkingLotMapper.toEntity(parkingLotDtoRequest);
         parkingLot.setContactPerson(personService.findMemberById(parkingLotDtoRequest.getContactId()));
 
-        return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLot));
+        Division division = divisionService.getDivisionEntityById(parkingLotDtoRequest.getDivisionId());
+        parkingLot.setDivision(division);
+
+        return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLot), division);
     }
 
     public List<ParkingLotDtoResponseForGetAll> findAll() {
 
         return parkingLotRepository.findAll()
                 .stream()
-                .map(parkingLot -> parkingLotMapper.toResponse(parkingLot, parkingLot.getContactPerson()))
+                .map(parkingLot -> parkingLotMapper.toResponse(parkingLot, parkingLot.getContactPerson(), parkingLot.getDivision()))
                 .collect(Collectors.toList());
     }
 

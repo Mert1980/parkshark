@@ -41,4 +41,8 @@ public class ParkingLot {
     @Column(name = "price_per_hour")
     double pricePerHour;
 
+    @OneToOne
+    @JoinColumn(name="division_id_fk")
+    Division division;
+
 }

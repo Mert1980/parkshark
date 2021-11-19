@@ -19,5 +19,5 @@ public class ParkingLotDtoResponse {
     Integer capacity;
     Long contactId;
     AddressDtoResponse addressDtoResponse;
-    Long divisionId;
+    DivisionDtoResponse division;
 }
