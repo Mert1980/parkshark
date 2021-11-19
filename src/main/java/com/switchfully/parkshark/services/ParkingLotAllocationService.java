@@ -72,4 +72,17 @@ public class ParkingLotAllocationService {
       throw new NotGoldMemberException();
     }
   }
+
+  public Long getNumberOfAllocationForParkingLot(Long parkingLotId) {
+    return parkingLotAllocationRepository.findAll().stream()
+        .filter(parkingLotAllocation -> parkingLotAllocation.getParkingLotId() == parkingLotId)
+        .count();
+  }
+
+  private void assertParkingLotIsNotFull(Long parkingLotId) {
+    if (getNumberOfAllocationForParkingLot(parkingLotId) >= parkingLotService.getParkingLotById(
+        parkingLotId).getCapacity()) {
+      throw new ParkingIsFullException(parkingLotId);
+    }
+  }
 }
