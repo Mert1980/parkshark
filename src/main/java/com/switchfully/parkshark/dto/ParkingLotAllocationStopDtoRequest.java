@@ -2,18 +2,14 @@ package com.switchfully.parkshark.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+@Getter
 @Builder
-@Data
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AddressDtoResponse {
+public class ParkingLotAllocationStopDtoRequest {
 
-  String streetName;
-  String streetNumber;
-  String postalCode;
-  String city;
+  Long parkingLotAllocationId;
+  Long memberId;
 }

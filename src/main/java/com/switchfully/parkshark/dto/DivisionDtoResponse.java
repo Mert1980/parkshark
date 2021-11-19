@@ -10,9 +10,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DivisionDtoResponse {
 
-    Long divisionId;
-    String name;
-    String originalName;
-    Long directorId;
-    Long parentDivisionId;
+  Long divisionId;
+  String name;
+  String originalName;
+  Long directorId;
+  Long parentDivisionId;
 }

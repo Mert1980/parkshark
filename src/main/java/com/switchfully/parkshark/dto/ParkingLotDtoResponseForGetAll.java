@@ -1,6 +1,5 @@
 package com.switchfully.parkshark.dto;
 
-import com.switchfully.parkshark.domain.Division;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +11,11 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ParkingLotDtoResponseForGetAll {
-    Long id;
-    String name;
-    Integer capacity;
-    String email;
-    String mobilePhoneNumber;
-    DivisionDtoResponse division;
+
+  Long id;
+  String name;
+  Integer capacity;
+  String email;
+  String mobilePhoneNumber;
+  DivisionDtoResponse division;
 }

@@ -4,11 +4,18 @@ package com.switchfully.parkshark.services;
 import com.switchfully.parkshark.domain.ParkingLotAllocation;
 import com.switchfully.parkshark.dto.ParkingLotAllocationDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotAllocationDtoResponse;
+import com.switchfully.parkshark.dto.ParkingLotAllocationStopDtoRequest;
 import com.switchfully.parkshark.repositories.ParkingLotAllocationRepository;
 import com.switchfully.parkshark.services.exceptions.NotGoldMemberException;
 import com.switchfully.parkshark.services.exceptions.ParkingIsFullException;
+import com.switchfully.parkshark.services.exceptions.ParkingLotAllocationNotActive;
+import com.switchfully.parkshark.services.exceptions.ParkingLotAllocationNotFound;
+import com.switchfully.parkshark.services.exceptions.UnauthorizedParkingAllocation;
 import com.switchfully.parkshark.services.mapper.ParkingLotAllocationMapper;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +40,7 @@ public class ParkingLotAllocationService {
     this.personService = personService;
   }
 
-  public ParkingLotAllocationDtoResponse save(
+  public ParkingLotAllocationDtoResponse startParking(
       ParkingLotAllocationDtoRequest parkingLotAllocationDtoRequest) {
 
     assertAllocationRequestValid(parkingLotAllocationDtoRequest);
@@ -41,34 +48,69 @@ public class ParkingLotAllocationService {
     ParkingLotAllocation parkingLotAllocation = parkingLotAllocationMapper.toEntity(
         parkingLotAllocationDtoRequest);
 
-    LocalDate startDate = LocalDate.now();
-    parkingLotAllocation.setStartDate(startDate.toString());
+    parkingLotAllocation.setStartTime(LocalDateTime.now().toString());
 
     return parkingLotAllocationMapper.toResponse(
         parkingLotAllocationRepository.save(parkingLotAllocation));
   }
 
+  public ParkingLotAllocationDtoResponse stopParking(ParkingLotAllocationStopDtoRequest parkingLotAllocationStopDtoRequest) {
+    assertValidPersonId(parkingLotAllocationStopDtoRequest.getMemberId());
+    Long parkingLotAllocationId = parkingLotAllocationStopDtoRequest.getParkingLotAllocationId();
+
+    ParkingLotAllocation allocation = parkingLotAllocationRepository.findById(parkingLotAllocationId)
+        .orElseThrow(() -> new ParkingLotAllocationNotFound(parkingLotAllocationId));
+
+    Long memberId = allocation.getPerson().getId();
+
+    assertRightPersonStopsAllocation(memberId, parkingLotAllocationStopDtoRequest.getMemberId());
+    assertAllocationActive(parkingLotAllocationId);
+    allocation.setStopTime(LocalDateTime.now().toString());
+    return parkingLotAllocationMapper.toResponse(allocation);
+
+  }
+
+  public List<ParkingLotAllocationDtoResponse> getAllParkingLotAllocations(){
+    return parkingLotAllocationRepository.findAll().stream()
+        .map(parkingLotAllocationMapper::toResponse)
+        .collect(Collectors.toList());
+  }
+
   private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest) {
     assertValidPersonId(allocationDtoRequest.getPersonId());
+    System.out.println("1:  " + allocationDtoRequest.getPersonId());
     assertValidParkingLotId(allocationDtoRequest.getParkingLotId());
     assertParkingLotIsNotFull(allocationDtoRequest.getParkingLotId());
     String personLicensePlateNumber = getLicencePlateNumberFromMember(
         allocationDtoRequest.getPersonId());
     assertLicensePlateFromMemberIsTheirs(allocationDtoRequest.getLicensePlateNumber(),
         personLicensePlateNumber);
-
-
   }
 
-  private String getLicencePlateNumberFromMember(long memberId) {
+  private String getLicencePlateNumberFromMember(Long memberId) {
     return personService.getMemberById(memberId).getLicencePlateNumber();
   }
 
-  private void assertValidPersonId(long id) {
+  private void assertAllocationActive(Long id) {
+    ParkingLotAllocation allocation = parkingLotAllocationRepository.findById(id)
+        .orElseThrow(() -> new ParkingLotAllocationNotFound(id));
+    if (allocation.getStopTime() != null) {
+      throw new ParkingLotAllocationNotActive(id);
+    }
+  }
+
+  private void assertValidPersonId(Long id) {
+    System.out.println("2: " + id);
     personService.assertValidPersonId(id);
   }
 
-  private void assertValidParkingLotId(long id) {
+  private void assertRightPersonStopsAllocation(Long idExpected, Long idToAssert) {
+    if (!Objects.equals(idExpected, idToAssert)) {
+      throw new UnauthorizedParkingAllocation();
+    }
+  }
+
+  private void assertValidParkingLotId(Long id) {
     parkingLotService.assertValidParkingLotId(id);
   }
 

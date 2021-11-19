@@ -16,14 +16,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DivisionDtoRequest {
 
-    @NotBlank @NotNull
-    String name;
+  @NotBlank @NotNull
+  String name;
 
-    @NotBlank @NotNull
-    String originalName;
+  @NotBlank @NotNull
+  String originalName;
 
-    @NotNull
-    Long directorId;
-
-    Long parentDivisionId;
+  @NotNull
+  Long directorId;
+  Long parentDivisionId;
 }

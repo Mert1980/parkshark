@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {"com.switchfully.parkshark", "com.switchsecure"})
-public class ParksharkApplication{
+public class ParksharkApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ParksharkApplication.class, args);
+  public static void main(String[] args) {
+    SpringApplication.run(ParksharkApplication.class, args);
 
-    }
+  }
 }

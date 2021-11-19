@@ -8,78 +8,77 @@ import com.switchfully.parkshark.repositories.DivisionRepository;
 import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.exceptions.DivisionNotFoundException;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class DivisionService {
 
-    private final DivisionRepository divisionRepository;
-    private final PersonRepository personRepository;
-    private final DivisionMapper divisionMapper;
-    private final PersonService personService;
+  private final DivisionRepository divisionRepository;
+  private final PersonRepository personRepository;
+  private final DivisionMapper divisionMapper;
+  private final PersonService personService;
 
-    @Autowired
-    public DivisionService(DivisionRepository divisionRepository, PersonRepository personRepository,
-                           DivisionMapper divisionMapper, PersonService personService) {
-        this.divisionRepository = divisionRepository;
-        this.personRepository = personRepository;
-        this.divisionMapper = divisionMapper;
-        this.personService = personService;
-    }
+  @Autowired
+  public DivisionService(DivisionRepository divisionRepository, PersonRepository personRepository,
+      DivisionMapper divisionMapper, PersonService personService) {
+    this.divisionRepository = divisionRepository;
+    this.personRepository = personRepository;
+    this.divisionMapper = divisionMapper;
+    this.personService = personService;
+  }
 
-    public DivisionDtoResponse save(DivisionDtoRequest divisionDtoRequest) {
+  public DivisionDtoResponse save(DivisionDtoRequest divisionDtoRequest) {
 
-        personService.assertValidPersonId(divisionDtoRequest.getDirectorId());
-        assertValidDivisionIdAndIdNotNull(divisionDtoRequest.getParentDivisionId());
+    personService.assertValidPersonId(divisionDtoRequest.getDirectorId());
+    assertValidDivisionIdAndIdNotNull(divisionDtoRequest.getParentDivisionId());
 
-        Division division = divisionMapper.toEntity(divisionDtoRequest);
+    Division division = divisionMapper.toEntity(divisionDtoRequest);
 //Set ParentId if not null
-        if (divisionDtoRequest.getParentDivisionId() != null) {
-            Division parentDivision = divisionRepository.getById(
-                    divisionDtoRequest.getParentDivisionId());
-            division.setParentDivision(parentDivision);
-        }
+    if (divisionDtoRequest.getParentDivisionId() != null) {
+      Division parentDivision = divisionRepository.getById(
+          divisionDtoRequest.getParentDivisionId());
+      division.setParentDivision(parentDivision);
+    }
 //Set DirectorId
-        Person director = personRepository.getById(divisionDtoRequest.getDirectorId());
-        division.setDirector(director);
+    Person director = personRepository.getById(divisionDtoRequest.getDirectorId());
+    division.setDirector(director);
 
-        return divisionMapper.toResponse(divisionRepository.save(division));
+    return divisionMapper.toResponse(divisionRepository.save(division));
+  }
+
+  protected void assertValidDivisionIdAndIdNotNull(Long id) {
+    if (id != null && !divisionRepository.existsById(id)) {
+      throw new DivisionNotFoundException(id);
+    }
+  }
+
+  public List<DivisionDtoResponse> getAllDivisions() {
+    return divisionMapper.toResponse(divisionRepository.findAll());
+  }
+
+  public DivisionDtoResponse getDivisionById(Long divisionId) {
+    Optional<Division> divisionOptional = divisionRepository.findById(divisionId);
+
+    if (divisionOptional.isEmpty()) {
+      throw new IllegalArgumentException("Id not found");
     }
 
-    protected void assertValidDivisionIdAndIdNotNull(Long id) {
-        if (id != null && !divisionRepository.existsById(id)) {
-            throw new DivisionNotFoundException(id);
-        }
+    return divisionMapper.toResponse(divisionOptional.get());
+  }
+
+  public Division getDivisionEntityById(Long divisionId) {
+    assertValidDivisionId(divisionId);
+    return divisionRepository.getById(divisionId);
+  }
+
+  protected void assertValidDivisionId(Long id) {
+    if (divisionRepository.findById(id).isEmpty()) {
+      throw new IllegalArgumentException("Parent division does not exist");
     }
-
-    public List<DivisionDtoResponse> getAllDivisions() {
-        return divisionMapper.toResponse(divisionRepository.findAll());
-    }
-
-    public DivisionDtoResponse getDivisionById(Long divisionId) {
-        Optional<Division> divisionOptional = divisionRepository.findById(divisionId);
-
-        if (divisionOptional.isEmpty()) {
-            throw new IllegalArgumentException("Id not found");
-        }
-
-        return divisionMapper.toResponse(divisionOptional.get());
-    }
-
-    public Division getDivisionEntityById(Long divisionId){
-        assertValidDivisionId(divisionId);
-        return divisionRepository.getById(divisionId);
-    }
-
-    protected void assertValidDivisionId(Long id) {
-        if (divisionRepository.findById(id).isEmpty()) {
-            throw new IllegalArgumentException("Parent division does not exist");
-        }
-    }
+  }
 }

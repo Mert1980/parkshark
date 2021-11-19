@@ -7,42 +7,46 @@ import com.switchfully.parkshark.services.ParkingLotService;
 import com.switchfully.parkshark.services.mapper.ParkingLotMapper;
 import com.switchsecure.SecurityGuard;
 import com.switchsecure.SecurityGuard.ApiUserRole;
+import java.util.List;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/parkinglots")
 public class ParkingLotController {
-    private final ParkingLotMapper parkingLotMapper;
-    private final ParkingLotService parkingLotService;
-    private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
 
-    public ParkingLotController(ParkingLotMapper parkingLotMapper, ParkingLotService parkingLotService) {
-        this.parkingLotMapper = parkingLotMapper;
-        this.parkingLotService = parkingLotService;
-    }
+  private final ParkingLotMapper parkingLotMapper;
+  private final ParkingLotService parkingLotService;
+  private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.CREATED)
-    @SecurityGuard(ApiUserRole.ADMIN)
-    public ParkingLotDtoResponse addParkingLot(@Valid @RequestBody ParkingLotDtoRequest request) {
-        logger.info("Creating a parkingLot");
-        return parkingLotService.save(request);
-    }
+  public ParkingLotController(ParkingLotMapper parkingLotMapper, ParkingLotService parkingLotService) {
+    this.parkingLotMapper = parkingLotMapper;
+    this.parkingLotService = parkingLotService;
+  }
 
-    @GetMapping(produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    @SecurityGuard(ApiUserRole.ADMIN)
-    public List<ParkingLotDtoResponseForGetAll> getAllParkingLots() {
-        logger.info("Retrieved all parking lots");
-        return parkingLotService.findAll();
-    }
+  @PostMapping(consumes = "application/json", produces = "application/json")
+  @ResponseBody
+  @ResponseStatus(HttpStatus.CREATED)
+  @SecurityGuard(ApiUserRole.ADMIN)
+  public ParkingLotDtoResponse addParkingLot(@Valid @RequestBody ParkingLotDtoRequest request) {
+    logger.info("Creating a parkingLot");
+    return parkingLotService.save(request);
+  }
+
+  @GetMapping(produces = "application/json")
+  @ResponseStatus(HttpStatus.OK)
+  @SecurityGuard(ApiUserRole.ADMIN)
+  public List<ParkingLotDtoResponseForGetAll> getAllParkingLots() {
+    logger.info("Retrieved all parking lots");
+    return parkingLotService.findAll();
+  }
 }

@@ -14,16 +14,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class ParkingLotAllocationDtoResponse {
 
-  long id;
-
+  long parkingLotAllocationId;
   long personId;
-
   String licencePlateNumber;
-
   long parkingLotId;
-
-
-
-
-
+  String startTime;
+  String stopTime;
 }

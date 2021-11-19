@@ -9,21 +9,21 @@ import org.springframework.stereotype.Component;
 public class ParkingLotAllocationMapper {
 
 
-   public ParkingLotAllocation toEntity(ParkingLotAllocationDtoRequest request) {
-      return ParkingLotAllocation.builder()
-          .licensePlateNumber(request.getLicensePlateNumber())
-          .parkingLotId(request.getParkingLotId())
-          .build();
-   }
+  public ParkingLotAllocation toEntity(ParkingLotAllocationDtoRequest request) {
+    return ParkingLotAllocation.builder()
+        .licensePlateNumber(request.getLicensePlateNumber())
+        .parkingLotId(request.getParkingLotId())
+        .build();
+  }
 
-   public ParkingLotAllocationDtoResponse toResponse(ParkingLotAllocation entity) {
-      return ParkingLotAllocationDtoResponse.builder()
-          .id(entity.getId())
-          .personId(entity.getPerson().getId())
-          .licencePlateNumber(entity.getLicensePlateNumber())
-          .parkingLotId(entity.getParkingLotId())
-          .build();
-   }
+  public ParkingLotAllocationDtoResponse toResponse(ParkingLotAllocation entity) {
+    return ParkingLotAllocationDtoResponse.builder()
+        .parkingLotAllocationId(entity.getId())
+        .personId(entity.getPerson().getId())
+        .licencePlateNumber(entity.getLicensePlateNumber())
+        .parkingLotId(entity.getParkingLotId())
+        .build();
+  }
 
 
 }
