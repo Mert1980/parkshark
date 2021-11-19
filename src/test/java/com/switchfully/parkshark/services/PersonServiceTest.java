@@ -6,6 +6,7 @@ import com.switchfully.parkshark.dto.AddressDtoResponse;
 import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.repositories.PersonRepository;
+import com.switchfully.parkshark.services.exceptions.PersonNotFoundException;
 import com.switchfully.parkshark.services.mapper.AddressDtoRequest;
 import com.switchfully.parkshark.services.mapper.PersonMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
 class PersonServiceTest {
@@ -25,7 +29,8 @@ class PersonServiceTest {
     void setUp() {
         personRepositoryMock = Mockito.mock(PersonRepository.class);
         personMapperMock = Mockito.mock(PersonMapper.class);
-        personServiceMock = new PersonService(personRepositoryMock, personMapperMock);
+        personServiceMock = new PersonService(personRepositoryMock,
+                personMapperMock);
     }
 
     @Test
@@ -67,12 +72,13 @@ class PersonServiceTest {
                 .registrationDate(LocalDate.now())
                 .build();
 
-        AddressDtoResponse addressDtoResponse = AddressDtoResponse.builder()
-                .streetName("Cool Street")
-                .streetNumber("5")
-                .postalCode("5641")
-                .city("CoolVille")
-                .build();
+        AddressDtoResponse addressDtoResponse =
+                AddressDtoResponse.builder()
+                        .streetName("Cool Street")
+                        .streetNumber("5")
+                        .postalCode("5641")
+                        .city("CoolVille")
+                        .build();
 
         PersonDtoResponse personDtoResponse = PersonDtoResponse.builder()
                 .id(1L)
@@ -93,5 +99,90 @@ class PersonServiceTest {
         personServiceMock.registerMember(personDtoRequest);
 
         Mockito.verify(personRepositoryMock).save(any(Person.class));
+    }
+
+    @Test
+    void whenEmailIsValid_ValidationDoesNotThrowException() {
+
+        AddressDtoRequest addressDtoRequest = AddressDtoRequest.builder()
+                .streetName("Cool Street")
+                .streetNumber("5")
+                .postalCode("5641")
+                .city("CoolVille")
+                .build();
+
+        PersonDtoRequest personDtoRequest = PersonDtoRequest.builder()
+                .firstName("Jhon")
+                .lastName("Doe")
+                .email("john@doe.be")
+                .addressDtoRequest(addressDtoRequest)
+                .phoneNumberMobile("074777777")
+                .phoneNumberLocal("069887744")
+                .licencePlateNumber("1-ppp-987")
+                .registrationDate(LocalDate.now().toString())
+                .build();
+
+        assertDoesNotThrow(() ->
+                personServiceMock.assertValidPersonDTORequest(personDtoRequest));
+    }
+
+    @Test
+    void whenEmailIsInValid_ValidationDoesThrowException() {
+
+        AddressDtoRequest addressDtoRequest = AddressDtoRequest.builder()
+                .streetName("Cool Street")
+                .streetNumber("5")
+                .postalCode("5641")
+                .city("CoolVille")
+                .build();
+
+        PersonDtoRequest personDtoRequest = PersonDtoRequest.builder()
+                .firstName("Jhon")
+                .lastName("Doe")
+                .email("johndoebe")
+                .addressDtoRequest(addressDtoRequest)
+                .phoneNumberMobile("074777777")
+                .phoneNumberLocal("069887744")
+                .licencePlateNumber("1-ppp-987")
+                .registrationDate(LocalDate.now().toString())
+                .build();
+
+        assertThrows(IllegalArgumentException.class, () ->
+                personServiceMock.assertValidPersonDTORequest(personDtoRequest));
+    }
+
+    @Test
+    void whenPersonIdIsValid_AssertValidPersonIdDoesNotThrowException() {
+
+        Address addressEntity = Address.builder()
+                .streetName("Cool Street")
+                .streetNumber("5")
+                .postalCode("5641")
+                .city("CoolVille")
+                .build();
+
+        Person personEntity = Person.builder()
+                .firstName("Jhon")
+                .lastName("Doe")
+                .email("john@doe.be")
+                .address(addressEntity)
+                .phoneNumberMobile("074777777")
+                .phoneNumberLocal("069887744")
+                .licencePlateNumber("1-ppp-555")
+                .registrationDate(LocalDate.now())
+                .build();
+
+        Mockito.when(personRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(personEntity));
+
+        assertDoesNotThrow(() ->
+                personServiceMock.assertValidPersonId(1L));
+    }
+
+    @Test
+    void whenPersonIdIsInvalid_AssertValidPersonIdDoesThrowException() {
+        Mockito.when(personRepositoryMock.findById(any(Long.class))).thenReturn(Optional.empty());
+
+        assertThrows(PersonNotFoundException.class, () ->
+                personServiceMock.assertValidPersonId(1L));
     }
 }
