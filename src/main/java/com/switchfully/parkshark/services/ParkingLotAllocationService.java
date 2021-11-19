@@ -103,6 +103,12 @@ public class ParkingLotAllocationService {
     personService.assertValidPersonId(id);
   }
 
+  private void assertRightPersonStopsAllocation(Long idExpected, Long idToAssert) {
+    if (!Objects.equals(idExpected, idToAssert)) {
+      throw new UnauthorizedParkingAllocation();
+    }
+  }
+
   private void assertValidParkingLotId(long id) {
     parkingLotService.assertValidParkingLotId(id);
   }
