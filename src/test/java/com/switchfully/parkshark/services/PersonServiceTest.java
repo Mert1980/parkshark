@@ -1,6 +1,7 @@
 package com.switchfully.parkshark.services;
 
 import com.switchfully.parkshark.domain.Address;
+import com.switchfully.parkshark.domain.MembershipLevelCategory;
 import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.AddressDtoResponse;
 import com.switchfully.parkshark.dto.PersonDtoRequest;
@@ -58,6 +59,7 @@ class PersonServiceTest {
                 .phoneNumberMobile("074777777")
                 .phoneNumberLocal("069887744")
                 .licencePlateNumber("1-ppp-987")
+                .membershipLevel("Bronze")
                 .registrationDate(LocalDate.now().toString())
                 .build();
 
@@ -70,6 +72,7 @@ class PersonServiceTest {
                 .phoneNumberLocal("069887744")
                 .licencePlateNumber("1-ppp-555")
                 .registrationDate(LocalDate.now())
+                .membershipLevel(MembershipLevelCategory.Gold)
                 .build();
 
         AddressDtoResponse addressDtoResponse =
@@ -90,6 +93,7 @@ class PersonServiceTest {
                 .registrationDate(LocalDate.now().toString())
                 .addressDtoResponse(addressDtoResponse)
                 .phoneNumberMobile("684789798")
+                .membershipLevel(MembershipLevelCategory.Bronze.toString())
                 .build();
 
         Mockito.when(personMapperMock.toEntity(any(PersonDtoRequest.class))).thenReturn(personEntity);
