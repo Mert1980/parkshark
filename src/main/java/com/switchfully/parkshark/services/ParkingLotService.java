@@ -3,8 +3,8 @@ package com.switchfully.parkshark.services;
 import com.switchfully.parkshark.domain.ParkingLot;
 import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
+import com.switchfully.parkshark.dto.ParkingLotDtoResponseForGetAll;
 import com.switchfully.parkshark.repositories.ParkingLotRepository;
-import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.mapper.ParkingLotMapper;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -38,7 +38,8 @@ public class ParkingLotService {
         return parkingLotMapper.toResponse(parkingLotRepository.save(parkingLot));
     }
 
-    public List<ParkingLotDtoResponse> findAll(){
+    public List<ParkingLotDtoResponseForGetAll> findAll(){
+
         return parkingLotRepository.findAll()
                 .stream()
                 .map(parkingLot -> parkingLotMapper.toResponse(parkingLot, parkingLot.getContactPerson()))
