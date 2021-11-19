@@ -1,5 +1,7 @@
 package com.switchfully.parkshark.services;
 
+import com.switchfully.parkshark.domain.ParkingLot;
+import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.repositories.DivisionRepository;
 import com.switchfully.parkshark.repositories.ParkingLotRepository;
 import com.switchfully.parkshark.repositories.PersonRepository;
@@ -30,7 +32,29 @@ class ParkingLotServiceTest {
         parkingLotService = new ParkingLotService(parkingLotRepositoryMock, parkingLotMapperMock, personServiceMock, divisionServiceMock);
     }
 
-    @Test
-    void whenAddingDivision_thenDivisionRepositorySaveMethodIsCalled() {
+  /*  @Test
+    void whenAddingParkingLot_thenParkingLotRepositorySaveMethodIsCalled() {
 
+        ParkingLotDtoRequest parkingLotDtoRequest = ParkingLotDtoRequest.builder()
+                .name("Test")
+                .parkingLotCategory("aboveground")
+                .divisionId(5L)
+                .pricePerHour(5.0)
+                .contactId(12L)
+                .capacity(500)
+                .addressDtoRequest(AddressDtoRequest.builder()
+                        .streetName("Cool Street")
+                        .streetNumber("5")
+                        .postalCode("5641")
+                        .city("CoolVille")
+                        .build())
+                .build();
+
+        ParkingLot parkingLot = ParkingLot.builder().build();
+
+        Mockito.when(parkingLotRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(parkingLot));
+
+        parkingLotService.save(parkingLotDtoRequest);
+        Mockito.verify(parkingLotRepositoryMock).save(any(ParkingLot.class));
+    }*/
 }
