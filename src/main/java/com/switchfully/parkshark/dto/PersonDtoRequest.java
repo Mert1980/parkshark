@@ -12,9 +12,11 @@ import lombok.experimental.FieldDefaults;
 
 
 @Builder
-@Data @ToString
+@Data
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PersonDtoRequest {
+
   @NotBlank @NotNull
   String firstName;
   @NotBlank @NotNull

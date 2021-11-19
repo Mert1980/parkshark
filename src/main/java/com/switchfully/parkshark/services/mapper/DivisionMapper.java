@@ -10,31 +10,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class DivisionMapper {
 
-    public Division toEntity(DivisionDtoRequest request) {
-        Division entity = new Division();
-        entity.setName(request.getName());
-        entity.setOriginalName(request.getOriginalName());
-        return entity;
+  public Division toEntity(DivisionDtoRequest request) {
+    Division entity = new Division();
+    entity.setName(request.getName());
+    entity.setOriginalName(request.getOriginalName());
+    return entity;
+  }
+
+
+  public DivisionDtoResponse toResponse(Division entity) {
+    Long parentDivisionId = null;
+
+    if (entity.getParentDivision() != null) {
+      parentDivisionId = entity.getParentDivision().getId();
     }
 
+    return DivisionDtoResponse.builder()
+        .divisionId(entity.getId())
+        .name(entity.getName())
+        .originalName(entity.getOriginalName())
+        .directorId(entity.getDirector().getId())
+        .parentDivisionId(parentDivisionId)
+        .build();
+  }
 
-    public DivisionDtoResponse toResponse(Division entity) {
-        Long parentDivisionId = null;
-
-        if (entity.getParentDivision() != null) {
-            parentDivisionId = entity.getParentDivision().getId();
-        }
-
-        return DivisionDtoResponse.builder()
-                .divisionId(entity.getId())
-                .name(entity.getName())
-                .originalName(entity.getOriginalName())
-                .directorId(entity.getDirector().getId())
-                .parentDivisionId(parentDivisionId)
-                .build();
-    }
-
-    public List<DivisionDtoResponse> toResponse(List<Division> entities) {
-        return entities.stream().map(this::toResponse).collect(Collectors.toList());
-    }
+  public List<DivisionDtoResponse> toResponse(List<Division> entities) {
+    return entities.stream().map(this::toResponse).collect(Collectors.toList());
+  }
 }

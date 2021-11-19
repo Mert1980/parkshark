@@ -18,50 +18,50 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PersonService {
 
-    private final PersonRepository personRepository;
-    private final PersonMapper personMapper;
+  private final PersonRepository personRepository;
+  private final PersonMapper personMapper;
 
-    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
-        this.personRepository = personRepository;
-        this.personMapper = personMapper;
+  public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
+    this.personRepository = personRepository;
+    this.personMapper = personMapper;
+  }
+
+  public List<PersonDtoResponse> getAllMembers() {
+    return personRepository.findAll()
+        .stream()
+        .map(personMapper::toResponse)
+        .collect(Collectors.toList());
+  }
+
+  @Cascade(CascadeType.PERSIST)
+  public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
+    assertValidPersonDTORequest(personDtoRequest);
+
+    return personMapper.toResponse(personRepository.save(personMapper.toEntity(personDtoRequest)));
+  }
+
+  public PersonDtoResponse getMemberById(long id) {
+    return personMapper.toResponse(personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id)));
+  }
+
+  public Person findMemberById(long id) {
+    return personRepository.getById(id);
+  }
+
+  public PersonDtoResponse deleteMember(long id) {
+    return null;
+  }
+
+  protected void assertValidPersonId(Long id) {
+    if (personRepository.findById(id).isEmpty()) {
+      throw new PersonNotFoundException(id);
     }
+  }
 
-    public List<PersonDtoResponse> getAllMembers() {
-        return personRepository.findAll()
-                .stream()
-                .map(person -> personMapper.toResponse(person))
-                .collect(Collectors.toList());
+  protected void assertValidPersonDTORequest(PersonDtoRequest personDtoRequest) {
+    if (!EmailValidator.getInstance().isValid(personDtoRequest.getEmail())) {
+      throw new IllegalArgumentException("Invalid email for user");
     }
-
-    @Cascade(CascadeType.PERSIST)
-    public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
-        assertValidPersonDTORequest(personDtoRequest);
-
-        return personMapper.toResponse(personRepository.save(personMapper.toEntity(personDtoRequest)));
-    }
-
-    public PersonDtoResponse getMemberById(long id) {
-        return personMapper.toResponse(personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id)));
-    }
-
-    public Person findMemberById(long id){
-        return personRepository.getById(id);
-    }
-
-    public PersonDtoResponse deleteMember(long id) {
-        return null;
-    }
-
-    protected void assertValidPersonId(Long id) {
-        if (personRepository.findById(id).isEmpty()) {
-            throw new PersonNotFoundException(id);
-        }
-    }
-
-    protected void assertValidPersonDTORequest(PersonDtoRequest personDtoRequest) {
-        if (!EmailValidator.getInstance().isValid(personDtoRequest.getEmail())) {
-            throw new IllegalArgumentException("Invalid email for user");
-        }
-    }
+  }
 
 }

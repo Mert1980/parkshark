@@ -17,14 +17,16 @@ import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Getter @Builder
-@NoArgsConstructor  @AllArgsConstructor
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "parking_lot_allocations", schema = "parkshark")
 public class ParkingLotAllocation {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column (name = "parking_lot_allocation_id")
+  @Column(name = "parking_lot_allocation_id")
   long id;
 
   @Column(name = "parking_lot_id_fk")
@@ -38,16 +40,16 @@ public class ParkingLotAllocation {
   String licensePlateNumber;
 
   @Column(name = "start_time")
-  String startDate;
+  String startTime;
   @Column(name = "stop_time")
-  String endDate;
+  String stopTime;
 
-  public void setStartDate(String startDate) {
-    this.startDate = startDate;
+  public void setStartTime(String startDate) {
+    this.startTime = startDate;
   }
 
-  public void setEndDate(String endDate) {
-    this.endDate = endDate;
+  public void setStopTime(String endDate) {
+    this.stopTime = endDate;
   }
 
   public void setPerson(Person person) {

@@ -26,43 +26,44 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping(path = "/divisions")
 public class DivisionController {
 
-    private final DivisionService divisionService;
-    private final DivisionMapper divisionMapper;
-    private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
+  private final DivisionService divisionService;
+  private final DivisionMapper divisionMapper;
+  private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
 
-    @Autowired
-    public DivisionController(DivisionService divisionService, DivisionMapper divisionMapper) {
-        this.divisionService = divisionService;
-        this.divisionMapper = divisionMapper;
+  @Autowired
+  public DivisionController(DivisionService divisionService, DivisionMapper divisionMapper) {
+    this.divisionService = divisionService;
+    this.divisionMapper = divisionMapper;
+  }
+
+  @GetMapping(produces = "application/json")
+  @ResponseStatus(HttpStatus.OK)
+  @SecurityGuard(ApiUserRole.ADMIN)
+  public List<DivisionDtoResponse> getAllDivisions() {
+    logger.info("Retrieved all divisions");
+    return divisionService.getAllDivisions();
+  }
+
+  @GetMapping(produces = "application/json", path = "{divisionId}")
+  @ResponseStatus(HttpStatus.OK)
+  @SecurityGuard(ApiUserRole.ADMIN)
+  public DivisionDtoResponse getDivisionById(@PathVariable("divisionId") Long divisionId) {
+    logger.info("Retrieved division id " + divisionId);
+    return divisionService.getDivisionById(divisionId);
+  }
+
+  @PostMapping(consumes = "application/json", produces = "application/json")
+  @ResponseStatus(HttpStatus.CREATED)
+  @SecurityGuard(ApiUserRole.ADMIN)
+  public DivisionDtoResponse saveDivision(@Valid @RequestBody DivisionDtoRequest divisionDtoRequest,
+      BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "All fields are required");
     }
 
-    @GetMapping(produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    @SecurityGuard(ApiUserRole.ADMIN)
-    public List<DivisionDtoResponse> getAllDivisions() {
-        logger.info("Retrieved all divisions");
-        return divisionService.getAllDivisions();
-    }
-
-    @GetMapping(produces = "application/json", path = "{divisionId}")
-    @ResponseStatus(HttpStatus.OK)
-    @SecurityGuard(ApiUserRole.ADMIN)
-    public DivisionDtoResponse getDivisionById(@PathVariable("divisionId") Long divisionId) {
-        logger.info("Retrieved division id " + divisionId);
-        return divisionService.getDivisionById(divisionId);
-    }
-
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    @SecurityGuard(ApiUserRole.ADMIN)
-    public DivisionDtoResponse saveDivision(@Valid @RequestBody DivisionDtoRequest divisionDtoRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "All fields are required");
-        }
-
-        logger.info("Register new division " + divisionDtoRequest.getName());
-        return divisionService.save(divisionDtoRequest);
-    }
+    logger.info("Register new division " + divisionDtoRequest.getName());
+    return divisionService.save(divisionDtoRequest);
+  }
 
 
 }

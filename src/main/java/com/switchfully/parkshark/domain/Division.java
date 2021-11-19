@@ -19,26 +19,27 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Division {
-    @Id
+
+  @Id
 //    @SequenceGenerator(name = "division_seq", sequenceName = "DIVISION_SEQ", initialValue = 1, allocationSize = 1)
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "division_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "division_id")
-    Long id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "division_id")
+  Long id;
 
-    @Column(name = "name")
-    String name;
+  @Column(name = "name")
+  String name;
 
-    @Column(name = "original_name")
-    String originalName;
+  @Column(name = "original_name")
+  String originalName;
 
-    @OneToOne
-    @JoinColumn(name = "director_id")
-    Person director;
+  @OneToOne
+  @JoinColumn(name = "director_id")
+  Person director;
 
-    @OneToOne
-    @JoinColumn(name = "parent_division_id")
-    Division parentDivision;
+  @OneToOne
+  @JoinColumn(name = "parent_division_id")
+  Division parentDivision;
 
 
 }

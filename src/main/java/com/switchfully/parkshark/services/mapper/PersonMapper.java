@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PersonMapper {
+
   private final AddressMapper addressMapper;
 
   @Autowired
@@ -31,17 +32,17 @@ public class PersonMapper {
   }
 
 
-    public PersonDtoResponse toResponse(Person person) {
-      return PersonDtoResponse.builder()
-          .id(person.getId())
-          .firstName(person.getFirstName())
-          .lastName(person.getLastName())
-          .email(person.getEmail())
-          .addressDtoResponse(addressMapper.toResponse(person.getAddress()))
-          .phoneNumberMobile(person.getPhoneNumberMobile())
-          .phoneNumberLocal(person.getPhoneNumberLocal())
-          .licencePlateNumber(person.getLicencePlateNumber())
-          .registrationDate(person.getRegistrationDate().toString())
-          .build();
-    }
+  public PersonDtoResponse toResponse(Person person) {
+    return PersonDtoResponse.builder()
+        .id(person.getId())
+        .firstName(person.getFirstName())
+        .lastName(person.getLastName())
+        .email(person.getEmail())
+        .addressDtoResponse(addressMapper.toResponse(person.getAddress()))
+        .phoneNumberMobile(person.getPhoneNumberMobile())
+        .phoneNumberLocal(person.getPhoneNumberLocal())
+        .licencePlateNumber(person.getLicencePlateNumber())
+        .registrationDate(person.getRegistrationDate().toString())
+        .build();
+  }
 }

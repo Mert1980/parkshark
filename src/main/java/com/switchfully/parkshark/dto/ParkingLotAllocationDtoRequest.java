@@ -1,7 +1,6 @@
 package com.switchfully.parkshark.dto;
 
 
-import javax.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +15,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class ParkingLotAllocationDtoRequest {
 
-  long personId;
+  Long personId;
   String licensePlateNumber;
-  long parkingLotId;
+  Long parkingLotId;
 
 }

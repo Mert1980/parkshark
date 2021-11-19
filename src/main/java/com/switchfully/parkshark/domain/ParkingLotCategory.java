@@ -5,7 +5,8 @@ public enum ParkingLotCategory {
   aboveground("aboveground");
 
   private final String name;
-  ParkingLotCategory (String name){
+
+  ParkingLotCategory(String name) {
     this.name = name;
   }
 }

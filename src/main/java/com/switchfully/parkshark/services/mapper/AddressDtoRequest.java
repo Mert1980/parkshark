@@ -2,8 +2,6 @@ package com.switchfully.parkshark.services.mapper;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -15,19 +13,20 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AddressDtoRequest {
-    @NotBlank(message = "Street name can not be empty")
-    @NotNull
-    String streetName;
 
-    @NotBlank(message = "Street number can not be empty")
-    @NotNull
-    String streetNumber;
+  @NotBlank(message = "Street name can not be empty")
+  @NotNull
+  String streetName;
 
-    @NotBlank(message = "Postal code can not be empty")
-    @NotNull
-    String postalCode;
+  @NotBlank(message = "Street number can not be empty")
+  @NotNull
+  String streetNumber;
 
-    @NotBlank(message = "City can not be empty")
-    @NotNull
-    String city;
+  @NotBlank(message = "Postal code can not be empty")
+  @NotNull
+  String postalCode;
+
+  @NotBlank(message = "City can not be empty")
+  @NotNull
+  String city;
 }
