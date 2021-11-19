@@ -1,22 +1,12 @@
 package com.switchfully.parkshark.domain;
 
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
 
-@Getter @Builder
+import lombok.*;
+
+@Getter @Setter
+@Builder
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "person", schema = "parkshark")
@@ -43,6 +33,10 @@ public class Person {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id_fk")
     private Address address;
+
+    @Column(name = "membership_type_category", columnDefinition = "membership_type")
+    @Enumerated(EnumType.STRING)
+    private MembershipLevelCategory membershipLevel;
 
     public Person(long id, String firstName, String lastName, String email,
         String phoneNumberLocal, String phoneNumberMobile, String licensePlateNumber) {

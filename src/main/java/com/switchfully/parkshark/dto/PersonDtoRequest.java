@@ -32,4 +32,6 @@ public class PersonDtoRequest {
   String licencePlateNumber;
   @NotBlank @NotNull
   String registrationDate;
+
+  String membershipLevel;
 }

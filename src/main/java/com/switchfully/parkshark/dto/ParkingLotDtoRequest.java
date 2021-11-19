@@ -20,7 +20,7 @@ public class ParkingLotDtoRequest {
     @NotNull
     String name;
 
-    @NotBlank(message = "Name can not be empty")
+    @NotBlank(message = "Parking category can not be empty")
     @NotNull
     String parkingLotCategory;
 

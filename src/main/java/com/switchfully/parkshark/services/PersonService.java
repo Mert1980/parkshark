@@ -1,18 +1,20 @@
 package com.switchfully.parkshark.services;
 
+import com.switchfully.parkshark.domain.MembershipLevelCategory;
 import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.exceptions.PersonNotFoundException;
 import com.switchfully.parkshark.services.mapper.PersonMapper;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -37,14 +39,22 @@ public class PersonService {
     public PersonDtoResponse registerMember(PersonDtoRequest personDtoRequest) {
         assertValidPersonDTORequest(personDtoRequest);
 
+        setMemberShipLevelToBronzeIfNothingIsProvided(personDtoRequest);
+
         return personMapper.toResponse(personRepository.save(personMapper.toEntity(personDtoRequest)));
+    }
+
+    private void setMemberShipLevelToBronzeIfNothingIsProvided(PersonDtoRequest personDtoRequest) {
+        if (personDtoRequest.getMembershipLevel().isEmpty()) {
+            personDtoRequest.setMembershipLevel(String.valueOf(MembershipLevelCategory.Bronze));
+        }
     }
 
     public PersonDtoResponse getMemberById(long id) {
         return personMapper.toResponse(personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id)));
     }
 
-    public Person findMemberById(long id){
+    public Person findMemberById(long id) {
         return personRepository.getById(id);
     }
 

@@ -2,7 +2,6 @@ package com.switchfully.parkshark.domain;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 

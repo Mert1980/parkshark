@@ -1,5 +1,6 @@
 package com.switchfully.parkshark.dto;
 
+import com.switchfully.parkshark.domain.MembershipLevelCategory;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,5 @@ public class PersonDtoResponse {
    String phoneNumberLocal;
    String licencePlateNumber;
    String registrationDate;
+   String membershipLevel;
 }
