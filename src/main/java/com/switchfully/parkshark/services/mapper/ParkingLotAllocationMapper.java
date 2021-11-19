@@ -22,6 +22,8 @@ public class ParkingLotAllocationMapper {
         .personId(entity.getPerson().getId())
         .licencePlateNumber(entity.getLicensePlateNumber())
         .parkingLotId(entity.getParkingLotId())
+        .startTime(entity.getStartTime())
+        .stopTime(entity.getStopTime())
         .build();
   }
 

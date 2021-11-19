@@ -7,6 +7,8 @@ import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.exceptions.PersonNotFoundException;
 import com.switchfully.parkshark.services.mapper.PersonMapper;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -31,7 +33,7 @@ public class PersonService {
     public List<PersonDtoResponse> getAllMembers() {
         return personRepository.findAll()
                 .stream()
-                .map(person -> personMapper.toResponse(person))
+                .map(personMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
