@@ -46,7 +46,7 @@ public class PersonService {
         return personMapper.toResponse(personRepository.save(personMapper.toEntity(personDtoRequest)));
     }
 
-    private void setMemberShipLevelToBronzeIfNothingIsProvided(PersonDtoRequest personDtoRequest) {
+    protected void setMemberShipLevelToBronzeIfNothingIsProvided(PersonDtoRequest personDtoRequest) {
         if (personDtoRequest.getMembershipLevel().isEmpty()) {
             personDtoRequest.setMembershipLevel(String.valueOf(MembershipLevelCategory.Bronze));
         }
@@ -58,10 +58,6 @@ public class PersonService {
 
     public Person findMemberById(long id) {
         return personRepository.getById(id);
-    }
-
-    public PersonDtoResponse deleteMember(long id) {
-        return null;
     }
 
     protected void assertValidPersonId(Long id) {

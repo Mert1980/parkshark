@@ -17,8 +17,7 @@ import org.mockito.Mockito;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 class PersonServiceTest {
@@ -188,5 +187,32 @@ class PersonServiceTest {
 
         assertThrows(PersonNotFoundException.class, () ->
                 personServiceMock.assertValidPersonId(1L));
+    }
+
+    @Test
+    void whenPersonDTOHasNoMemberShipLevel_AssertSetMemberShipLeveLMethodSetsPersonToBronzeLevel() {
+
+        AddressDtoRequest addressDtoRequest = AddressDtoRequest.builder()
+                .streetName("Cool Street")
+                .streetNumber("5")
+                .postalCode("5641")
+                .city("CoolVille")
+                .build();
+
+        PersonDtoRequest personDtoRequest = PersonDtoRequest.builder()
+                .firstName("Jhon")
+                .lastName("Doe")
+                .email("johndoebe")
+                .addressDtoRequest(addressDtoRequest)
+                .phoneNumberMobile("074777777")
+                .phoneNumberLocal("069887744")
+                .licencePlateNumber("1-ppp-987")
+                .registrationDate(LocalDate.now().toString())
+                .membershipLevel("")
+                .build();
+
+        personServiceMock.setMemberShipLevelToBronzeIfNothingIsProvided(personDtoRequest);
+
+        assertEquals(MembershipLevelCategory.Bronze.toString(), personDtoRequest.getMembershipLevel());
     }
 }

@@ -7,6 +7,9 @@ import com.switchfully.parkshark.services.PersonService;
 import com.switchsecure.SecurityGuard;
 import java.util.List;
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -26,6 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class PersonController {
 
   private final PersonService personService;
+  private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
 
   @Autowired
   public PersonController(PersonService personService) {
@@ -36,6 +40,7 @@ public class PersonController {
   @ResponseStatus(value = HttpStatus.OK)
   @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
   public List<PersonDtoResponse> getAllMembers() {
+    logger.info("Retrieving all members");
     return personService.getAllMembers();
   }
 
@@ -43,6 +48,7 @@ public class PersonController {
   @ResponseStatus(value = HttpStatus.OK)
   @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
   public PersonDtoResponse getMemberById(@PathVariable long id) {
+    logger.info("Retrieving member with id " + id);
     return personService.getMemberById(id);
   }
 
@@ -50,17 +56,11 @@ public class PersonController {
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public PersonDtoResponse registerMember(@Valid @RequestBody PersonDtoRequest personDtoRequest, BindingResult bindingResult) {
+    logger.info("Creating new user");
     if (bindingResult.hasErrors()) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "All fields are required");
     }
 
     return personService.registerMember(personDtoRequest);
-  }
-
-  @DeleteMapping("/{id}")
-  @ResponseStatus(value = HttpStatus.NO_CONTENT)
-  @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
-  public PersonDtoResponse deleteMember(long id) {
-    return personService.deleteMember(id);
   }
 }
