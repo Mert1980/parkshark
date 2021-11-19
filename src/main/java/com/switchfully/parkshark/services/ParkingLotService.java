@@ -6,7 +6,6 @@ import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponseForGetAll;
 import com.switchfully.parkshark.repositories.ParkingLotRepository;
-import com.switchfully.parkshark.services.mapper.DivisionMapper;
 import com.switchfully.parkshark.services.exceptions.ParkingLotNotFoundException;
 import com.switchfully.parkshark.services.mapper.ParkingLotMapper;
 import org.hibernate.annotations.Cascade;
@@ -25,14 +24,12 @@ public class ParkingLotService {
     private final PersonService personService;
     private final DivisionService divisionService;
     private final ParkingLotMapper parkingLotMapper;
-    private final DivisionMapper divisionMapper;
 
-    public ParkingLotService(ParkingLotRepository parkingLotRepository, ParkingLotMapper parkingLotMapper, PersonService personService, DivisionService divisionService, DivisionMapper divisionMapper) {
+    public ParkingLotService(ParkingLotRepository parkingLotRepository, ParkingLotMapper parkingLotMapper, PersonService personService, DivisionService divisionService) {
         this.parkingLotRepository = parkingLotRepository;
         this.parkingLotMapper = parkingLotMapper;
         this.personService = personService;
         this.divisionService = divisionService;
-        this.divisionMapper = divisionMapper;
     }
 
     @Cascade(CascadeType.PERSIST)
