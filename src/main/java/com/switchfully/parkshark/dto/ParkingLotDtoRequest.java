@@ -1,6 +1,5 @@
 package com.switchfully.parkshark.dto;
 
-import com.switchfully.parkshark.domain.ParkingLotCategory;
 import com.switchfully.parkshark.services.mapper.AddressDtoRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,8 +8,7 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Builder
 @Data
@@ -18,19 +16,29 @@ import javax.validation.constraints.NotNull;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ParkingLotDtoRequest {
 
-    @NotBlank @NotNull
+    @NotBlank(message = "Name can not be empty")
+    @NotNull
     String name;
-    @NotBlank @NotNull
+
+    @NotBlank(message = "Name can not be empty")
+    @NotNull
     String parkingLotCategory;
-    @NotBlank @NotNull
+
+    @Positive(message = "Price should be greater than zero")
+    @NotNull
     Double pricePerHour;
-    @NotBlank @NotNull
+
+    @Min(value = 1, message = "Capacity needs to be at least one")
+    @NotNull
     Integer capacity;
-    @NotBlank @NotNull
+
+    @NotNull(message = "Contact id can not be empty")
+    @NotNull
     Long contactId;
+
     @Valid
     AddressDtoRequest addressDtoRequest;
-    @NotBlank @NotNull
-    Long divisionId;
 
+    @NotNull(message = "Division id can not be empty")
+    Long divisionId;
 }
