@@ -87,7 +87,7 @@ public class ParkingLotAllocationService {
         .collect(Collectors.toList());
   }
 
-  private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest) {
+  private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest, Person person) {
     assertValidPersonId(allocationDtoRequest.getPersonId());
     assertValidParkingLotId(allocationDtoRequest.getParkingLotId());
     assertParkingLotIsNotFull(allocationDtoRequest.getParkingLotId());
