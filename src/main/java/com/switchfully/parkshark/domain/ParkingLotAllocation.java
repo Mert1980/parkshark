@@ -49,4 +49,8 @@ public class ParkingLotAllocation {
   public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
+
+  public void setPerson(Person person) {
+    this.person = person;
+  }
 }
