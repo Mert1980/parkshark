@@ -1,7 +1,7 @@
 package com.switchfully.parkshark.services;
 
 
-import com.switchfully.parkshark.domain.ParkingLot;
+import com.switchfully.parkshark.domain.ParkingLotAllocation;
 import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.ParkingLotAllocationDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotAllocationDtoResponse;
@@ -32,7 +32,11 @@ public class ParkingLotAllocationService {
   }
 
   public ParkingLotAllocationDtoResponse save(ParkingLotAllocationDtoRequest parkingLotAllocationDtoRequest){
-    return parkingLotAllocationMapper.toResponse(parkingLotAllocationRepository.save(parkingLotAllocationMapper.toEntity(parkingLotAllocationDtoRequest))) ;
+  //Set person
+    ParkingLotAllocation parkingLotAllocation = parkingLotAllocationMapper.toEntity(parkingLotAllocationDtoRequest);
+    Person person = personService.findMemberById(parkingLotAllocationDtoRequest.getPersonId());
+
+    return parkingLotAllocationMapper.toResponse(parkingLotAllocationRepository.save(parkingLotAllocation));
   }
 
   private void isAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest) {

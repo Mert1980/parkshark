@@ -11,8 +11,7 @@ public class ParkingLotAllocationMapper {
 
    public ParkingLotAllocation toEntity(ParkingLotAllocationDtoRequest request) {
       return ParkingLotAllocation.builder()
-          //how to get person?
-          .person((request.getPersonId()))
+
           .licensePlateNumber(request.getLicensePlateNumber())
           .parkingLotId(request.getParkingLotId())
           .build();
