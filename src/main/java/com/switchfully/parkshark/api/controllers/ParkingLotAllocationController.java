@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/parking-lot-allocations")
+@RequestMapping("/parking-lot-allocations")
 public class ParkingLotAllocationController {
 
   private final ParkingLotAllocationService parkingLotAllocationService;
@@ -44,8 +44,11 @@ public class ParkingLotAllocationController {
     return parkingLotAllocationService.stopParking(request);
   }
 
-  @GetMapping
-  public List<ParkingLotAllocationDtoResponse> getParkingLotAllocation() {
-    return null;
+  @GetMapping(produces = "application/json")
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @SecurityGuard(ApiUserRole.ADMIN)
+  public List<ParkingLotAllocationDtoResponse> getAllParkingLotAllocations() {
+    return parkingLotAllocationService.getAllParkingLotAllocations();
   }
 }

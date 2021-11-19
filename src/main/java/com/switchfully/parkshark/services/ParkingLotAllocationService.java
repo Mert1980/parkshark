@@ -40,7 +40,7 @@ public class ParkingLotAllocationService {
     this.personService = personService;
   }
 
-  public ParkingLotAllocationDtoResponse save(
+  public ParkingLotAllocationDtoResponse startParking(
       ParkingLotAllocationDtoRequest parkingLotAllocationDtoRequest) {
 
     assertAllocationRequestValid(parkingLotAllocationDtoRequest);
@@ -78,6 +78,7 @@ public class ParkingLotAllocationService {
 
   private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest) {
     assertValidPersonId(allocationDtoRequest.getPersonId());
+    System.out.println("1:  " + allocationDtoRequest.getPersonId());
     assertValidParkingLotId(allocationDtoRequest.getParkingLotId());
     assertParkingLotIsNotFull(allocationDtoRequest.getParkingLotId());
     String personLicensePlateNumber = getLicencePlateNumberFromMember(
@@ -109,7 +110,7 @@ public class ParkingLotAllocationService {
     }
   }
 
-  private void assertValidParkingLotId(long id) {
+  private void assertValidParkingLotId(Long id) {
     parkingLotService.assertValidParkingLotId(id);
   }
 
