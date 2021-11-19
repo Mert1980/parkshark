@@ -41,7 +41,7 @@ public class ParkingLotService {
     public List<ParkingLotDtoResponse> findAll(){
         return parkingLotRepository.findAll()
                 .stream()
-                .map(parkingLot -> parkingLotMapper.toResponse(parkingLot))
+                .map(parkingLot -> parkingLotMapper.toResponse(parkingLot, parkingLot.getContactPerson()))
                 .collect(Collectors.toList());
     }
 }

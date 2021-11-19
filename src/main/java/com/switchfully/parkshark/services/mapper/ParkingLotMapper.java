@@ -2,8 +2,10 @@ package com.switchfully.parkshark.services.mapper;
 
 import com.switchfully.parkshark.domain.ParkingLot;
 import com.switchfully.parkshark.domain.ParkingLotCategory;
+import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
+import com.switchfully.parkshark.dto.ParkingLotDtoResponseForGetAll;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,6 +38,15 @@ public class ParkingLotMapper {
                 .contactId(entity.getContactPerson().getId())
                 .addressDtoResponse(addressMapper.toResponse(entity.getAddress()))
                 .build();
+    }
 
+    public ParkingLotDtoResponseForGetAll toResponse(ParkingLot entity, Person person) {
+        return ParkingLotDtoResponseForGetAll.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .capacity(entity.getCapacity())
+                .email(person.getEmail())
+                .mobilePhoneNumber(person.getPhoneNumberMobile())
+                .build();
     }
 }

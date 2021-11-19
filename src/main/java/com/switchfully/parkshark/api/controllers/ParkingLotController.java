@@ -2,6 +2,7 @@ package com.switchfully.parkshark.api.controllers;
 
 import com.switchfully.parkshark.dto.ParkingLotDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
+import com.switchfully.parkshark.dto.ParkingLotDtoResponseForGetAll;
 import com.switchfully.parkshark.services.ParkingLotService;
 import com.switchfully.parkshark.services.mapper.ParkingLotMapper;
 import com.switchsecure.SecurityGuard;
@@ -40,7 +41,7 @@ public class ParkingLotController {
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(ApiUserRole.ADMIN)
-    public List<ParkingLotDtoResponse> getAllParkingLots() {
+    public List<ParkingLotDtoResponseForGetAll> getAllParkingLots() {
         logger.info("Retrieved all parking lots");
         return parkingLotService.findAll();
     }
