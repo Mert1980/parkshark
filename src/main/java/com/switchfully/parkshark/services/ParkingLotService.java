@@ -7,6 +7,7 @@ import com.switchfully.parkshark.dto.ParkingLotDtoResponse;
 import com.switchfully.parkshark.dto.ParkingLotDtoResponseForGetAll;
 import com.switchfully.parkshark.repositories.ParkingLotRepository;
 import com.switchfully.parkshark.services.mapper.DivisionMapper;
+import com.switchfully.parkshark.services.exceptions.ParkingLotNotFoundException;
 import com.switchfully.parkshark.services.mapper.ParkingLotMapper;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -62,9 +63,9 @@ public class ParkingLotService {
         return parkingLotRepository.getById(parkingLotId);
     }
 
-    private void assertValidParkingLotId(Long parkingLotId) {
+    public void assertValidParkingLotId(Long parkingLotId) {
         if (parkingLotRepository.findById(parkingLotId).isEmpty()) {
-            throw new IllegalArgumentException("Parking lot does not exist");
+            throw new ParkingLotNotFoundException(parkingLotId);
         }
     }
 

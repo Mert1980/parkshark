@@ -94,7 +94,7 @@ create table parkshark.parkinglot_allocation
     stop_time                varchar
 );
 
-alter table parkshark.parkinglot_allocation
+alter table parkshark.parking_lot_allocations
     owner to student;
 
 create type parkshark.parking_category as enum ('underground', 'aboveground');
