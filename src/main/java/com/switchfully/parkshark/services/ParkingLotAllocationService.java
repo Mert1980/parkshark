@@ -2,13 +2,13 @@ package com.switchfully.parkshark.services;
 
 
 import com.switchfully.parkshark.domain.ParkingLotAllocation;
-import com.switchfully.parkshark.domain.Person;
 import com.switchfully.parkshark.dto.ParkingLotAllocationDtoRequest;
 import com.switchfully.parkshark.dto.ParkingLotAllocationDtoResponse;
 import com.switchfully.parkshark.repositories.ParkingLotAllocationRepository;
 import com.switchfully.parkshark.services.exceptions.NotGoldMemberException;
 import com.switchfully.parkshark.services.exceptions.ParkingIsFullException;
 import com.switchfully.parkshark.services.mapper.ParkingLotAllocationMapper;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,22 +35,27 @@ public class ParkingLotAllocationService {
 
   public ParkingLotAllocationDtoResponse save(
       ParkingLotAllocationDtoRequest parkingLotAllocationDtoRequest) {
-    //Set person
+
+    assertAllocationRequestValid(parkingLotAllocationDtoRequest);
+
     ParkingLotAllocation parkingLotAllocation = parkingLotAllocationMapper.toEntity(
         parkingLotAllocationDtoRequest);
-    Person person = personService.findMemberById(parkingLotAllocationDtoRequest.getPersonId());
+
+    LocalDate startDate = LocalDate.now();
+    parkingLotAllocation.setStartDate(startDate.toString());
 
     return parkingLotAllocationMapper.toResponse(
         parkingLotAllocationRepository.save(parkingLotAllocation));
   }
 
-  private void isAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest) {
+  private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest) {
     assertValidPersonId(allocationDtoRequest.getPersonId());
     assertValidParkingLotId(allocationDtoRequest.getParkingLotId());
     assertParkingLotIsNotFull(allocationDtoRequest.getParkingLotId());
     String personLicensePlateNumber = getLicencePlateNumberFromMember(
         allocationDtoRequest.getPersonId());
-    assertLicensePlateFromMemberIsTheirs(allocationDtoRequest.getLicensePlateNumber(), personLicensePlateNumber);
+    assertLicensePlateFromMemberIsTheirs(allocationDtoRequest.getLicensePlateNumber(),
+        personLicensePlateNumber);
 
 
   }
@@ -68,7 +73,7 @@ public class ParkingLotAllocationService {
   }
 
   private void assertLicensePlateFromMemberIsTheirs(String licensePlate1, String licensePlate2) {
-    if(!licensePlate1.equals(licensePlate2)){
+    if (!licensePlate1.equals(licensePlate2)) {
       throw new NotGoldMemberException();
     }
   }
