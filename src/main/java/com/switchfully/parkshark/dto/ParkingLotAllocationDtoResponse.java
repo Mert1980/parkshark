@@ -22,4 +22,5 @@ public class ParkingLotAllocationDtoResponse {
   long parkingLotId;
   String startTime;
   String stopTime;
+  String duration;
 }
