@@ -53,6 +53,12 @@ public class ParkingLotService {
         .map(parkingLot -> parkingLotMapper.toResponse(parkingLot, parkingLot.getContactPerson(), parkingLot.getDivision()))
         .collect(Collectors.toList());
   }
+  public ParkingLotDtoResponse findById(Long id){
+    assertValidParkingLotId(id);
+    ParkingLot parkingLot = parkingLotRepository.getById(id);
+    return parkingLotMapper.toResponse(parkingLot, parkingLot.getDivision()) ;
+  }
+
 
   public ParkingLot getParkingLotById(Long parkingLotId) {
     assertValidParkingLotId(parkingLotId);
