@@ -9,7 +9,6 @@ import com.switchfully.parkshark.dto.ParkingLotAllocationDtoResponse;
 import com.switchfully.parkshark.dto.ParkingLotAllocationStopDtoRequest;
 import com.switchfully.parkshark.repositories.ParkingLotAllocationRepository;
 import com.switchfully.parkshark.services.exceptions.NonMatchedLicencePlateException;
-import com.switchfully.parkshark.services.exceptions.NotGoldMemberException;
 import com.switchfully.parkshark.services.exceptions.ParkingIsFullException;
 import com.switchfully.parkshark.services.exceptions.ParkingLotAllocationNotActive;
 import com.switchfully.parkshark.services.exceptions.ParkingLotAllocationNotFound;
@@ -18,10 +17,15 @@ import com.switchfully.parkshark.services.mapper.ParkingLotAllocationMapper;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,11 +85,40 @@ public class ParkingLotAllocationService {
 
   }
 
-  public List<ParkingLotAllocationDtoResponse> getAllParkingLotAllocations(){
-    return parkingLotAllocationRepository.findAll().stream()
+  /**
+   *
+   * @param orderDirection This parameter is either ascending or descending, otherwise defaults to ascending
+   * @param filter allows us to filter based on null values of stopTime,
+   *               if the filter is set to "inProgress" it will return all entries where stopTime is null
+   *               if the filter is set to "completed" it will return all entries where stopTime is not null
+   *               else it will return all entries
+   * @param page The page number
+   * @param pageSize The number of items within a page
+   * @return A list of parkingLotAllocations based on the parameters
+   */
+  public List<ParkingLotAllocationDtoResponse> getAllParkingLotAllocations(String orderDirection, String filter, int page, int pageSize){
+    Direction direction = getDirectionFromStringDefaultIsAsc(orderDirection);
+    Pageable pagination = PageRequest.of(page, pageSize, Sort.by(direction, "startTime"));
+    Predicate<ParkingLotAllocation> filterPredicate = getParkingLotAllocationFilter(filter);
+
+    return parkingLotAllocationRepository.findAll(pagination)
+        .stream()
+        .filter(filterPredicate)
         .map(parkingLotAllocationMapper::toResponse)
         .collect(Collectors.toList());
   }
+
+  private Direction getDirectionFromStringDefaultIsAsc(String orderDirection) {
+    if (orderDirection.equals("desc") || orderDirection.equals("DESC")) return Direction.DESC;
+    return Direction.ASC;
+  }
+
+  private Predicate<ParkingLotAllocation> getParkingLotAllocationFilter(String filter) {
+    if (filter.equals(ParkingLotAllocationFilter.IN_PROGRESS.toString()))  return parkingLotAllocation  -> parkingLotAllocation.getStopTime() == null;
+    if (filter.equals(ParkingLotAllocationFilter.COMPLETED.toString()))  return parkingLotAllocation  -> parkingLotAllocation.getStopTime() != null;
+    return showAll -> true;
+  }
+
 
   private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest, Person person) {
     assertValidPersonId(allocationDtoRequest.getPersonId());
