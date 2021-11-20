@@ -18,11 +18,13 @@ import com.switchfully.parkshark.services.mapper.ParkingLotAllocationMapper;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.switchfully.parkshark.services.util.ParkingLotAllocationSpecification;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,16 +36,18 @@ public class ParkingLotAllocationService {
     private final ParkingLotAllocationMapper parkingLotAllocationMapper;
     private final ParkingLotService parkingLotService;
     private final PersonService personService;
+    private final ParkingLotAllocationSpecification parkingLotAllocationSpecification;
 
     @Autowired
     public ParkingLotAllocationService(ParkingLotAllocationRepository parkingLotAllocationRepository,
                                        ParkingLotAllocationMapper parkingLotAllocationMapper,
                                        ParkingLotService parkingLotService,
-                                       PersonService personService) {
+                                       PersonService personService, ParkingLotAllocationSpecification parkingLotAllocationSpecification) {
         this.parkingLotAllocationRepository = parkingLotAllocationRepository;
         this.parkingLotAllocationMapper = parkingLotAllocationMapper;
         this.parkingLotService = parkingLotService;
         this.personService = personService;
+        this.parkingLotAllocationSpecification = parkingLotAllocationSpecification;
     }
 
     @Cascade(CascadeType.PERSIST)
@@ -82,19 +86,11 @@ public class ParkingLotAllocationService {
 
     }
 
-    public Page<ParkingLotAllocationDtoResponse> getAllParkingLotAllocations(Pageable paging, String allocationStatus) {
+    public Page<ParkingLotAllocationDtoResponse> getAllParkingLotAllocations(Pageable paging, String allocationStatus, String memberId, String parkingLotId) {
 
-        switch (allocationStatus) {
-            case "Stopped": {
-                return parkingLotAllocationRepository.findByStopTimeNotNull(paging).map(parkingLotAllocationMapper::toResponse);
-            }
-            case "Active": {
-                return parkingLotAllocationRepository.findByStopTimeNull(paging).map(parkingLotAllocationMapper::toResponse);
-            }
-            default:
-                return parkingLotAllocationRepository.findAll(paging).map(parkingLotAllocationMapper::toResponse);
-        }
+        Specification<ParkingLotAllocation> queryFilter = parkingLotAllocationSpecification.getParkingLotAllocations(allocationStatus, memberId, parkingLotId);
 
+        return parkingLotAllocationRepository.findAll(queryFilter, paging).map(parkingLotAllocationMapper::toResponse);
     }
 
     private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest, Person person) {
