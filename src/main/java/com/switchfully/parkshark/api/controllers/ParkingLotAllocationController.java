@@ -57,11 +57,11 @@ public class ParkingLotAllocationController {
     @SecurityGuard(SecurityGuard.ApiUserRole.ADMIN)
     @ResponseBody
     public Page<ParkingLotAllocationDtoResponse> getAllParkingLotAllocations(@RequestParam(defaultValue = "0") Integer pageNumber,
-                                                                             @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                             @RequestParam(defaultValue = "startTime") String sortBy,
-                                                                             @RequestParam(defaultValue = "ASC") String sortDirection,
-                                                                             @RequestParam(defaultValue = "All") String allocationStatus) {
-        logger.info("Retrieving all parking lot allocations");
+                                                                              @RequestParam(defaultValue = "10") Integer pageSize,
+                                                                              @RequestParam(defaultValue = "startTime") String sortBy,
+                                                                              @RequestParam(defaultValue = "ASC") String sortDirection,
+                                                                              @RequestParam(defaultValue = "All") String allocationStatus){
+        logger.info("Retrieving all parking lot allocations based on parameter criteria");
         Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.valueOf(sortDirection), sortBy));
         return parkingLotAllocationService.getAllParkingLotAllocations(paging, allocationStatus);
     }
