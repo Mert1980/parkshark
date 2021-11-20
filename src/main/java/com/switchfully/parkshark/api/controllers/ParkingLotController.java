@@ -31,6 +31,7 @@ public class ParkingLotController {
     this.parkingLotService = parkingLotService;
   }
 
+  //TODO: not sure why this says: Only admin can access this REST endpoint.... otherwise does work?
   @GetMapping(path = "/{id}", produces = "application/json")
   @SecurityGuard(ApiUserRole.ADMIN)
   @ResponseStatus(HttpStatus.OK)
