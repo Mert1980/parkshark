@@ -9,7 +9,6 @@ import com.switchfully.parkshark.dto.ParkingLotAllocationDtoResponse;
 import com.switchfully.parkshark.dto.ParkingLotAllocationStopDtoRequest;
 import com.switchfully.parkshark.repositories.ParkingLotAllocationRepository;
 import com.switchfully.parkshark.services.exceptions.NonMatchedLicencePlateException;
-import com.switchfully.parkshark.services.exceptions.NotGoldMemberException;
 import com.switchfully.parkshark.services.exceptions.ParkingIsFullException;
 import com.switchfully.parkshark.services.exceptions.ParkingLotAllocationNotActive;
 import com.switchfully.parkshark.services.exceptions.ParkingLotAllocationNotFound;
@@ -17,17 +16,13 @@ import com.switchfully.parkshark.services.exceptions.UnauthorizedParkingAllocati
 import com.switchfully.parkshark.services.mapper.ParkingLotAllocationMapper;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -108,9 +103,6 @@ public class ParkingLotAllocationService {
         assertParkingLotIsNotFull(allocationDtoRequest.getParkingLotId());
 
         assertMemberCanEnterWithLicensePlate(person.getMembershipLevel(), allocationDtoRequest.getLicensePlateNumber(), person.getLicencePlateNumber());
-//
-//    assertLicencePlateBelongsToMember(allocationDtoRequest.getLicensePlateNumber(), person.getLicencePlateNumber());
-//    assertMemberHasGoldMembershipStatus(person.getMembershipLevel());
     }
 
     private void assertMemberCanEnterWithLicensePlate(MembershipLevelCategory membershipLevelCategory, String licensePlateNumberFromMember, String licensePlateNumber) {
@@ -150,10 +142,10 @@ public class ParkingLotAllocationService {
         parkingLotService.assertValidParkingLotId(id);
     }
 
-    //TODO: Missing filter to include only spots that are active?
     public Long getNumberOfAllocationForParkingLot(Long parkingLotId) {
         return parkingLotAllocationRepository.findAll().stream()
                 .filter(parkingLotAllocation -> parkingLotAllocation.getParkingLotId() == parkingLotId)
+                .filter(parkingLotAllocation -> parkingLotAllocation.getStopTime() == null)
                 .count();
     }
 
