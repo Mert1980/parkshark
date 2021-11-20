@@ -24,12 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/parkinglots")
 public class ParkingLotController {
 
-  private final ParkingLotMapper parkingLotMapper;
   private final ParkingLotService parkingLotService;
-  private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
+  private final Logger logger = LoggerFactory.getLogger(ParkingLotService.class);
 
-  public ParkingLotController(ParkingLotMapper parkingLotMapper, ParkingLotService parkingLotService) {
-    this.parkingLotMapper = parkingLotMapper;
+  public ParkingLotController(ParkingLotService parkingLotService) {
     this.parkingLotService = parkingLotService;
   }
 
