@@ -1,6 +1,7 @@
 package com.switchfully.parkshark.services.exceptions;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,6 +31,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             throws IOException {
         logger.error("Illegal Argument: " + exception.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public void handleDateTimeParseExceptionException(DateTimeParseException exception, HttpServletResponse response)
+            throws IOException {
+        logger.error("Invalid date entered " + exception.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), "Invalid date entered: " + exception.getMessage());
     }
 
     @Override
