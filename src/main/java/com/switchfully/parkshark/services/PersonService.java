@@ -15,9 +15,6 @@ import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @Transactional
 public class PersonService {
@@ -52,12 +49,12 @@ public class PersonService {
         }
     }
 
-    public PersonDtoResponse getMemberById(long id) {
+    public PersonDtoResponse getMemberById(Long id) {
         return personMapper.toResponse(personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id)));
     }
 
-    public Person findMemberById(long id) {
-        return personRepository.getById(id);
+    public Person findMemberById(Long id) {
+        return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
     }
 
     protected void assertValidPersonId(Long id) {
