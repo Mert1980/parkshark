@@ -25,6 +25,12 @@ class DivisionServiceTest {
     private PersonRepository personRepositoryMock;
     private PersonService personServiceMock;
 
+    private DivisionDtoRequest divisionToSave;
+    private DivisionDtoResponse divisionDtoResponse;
+    private Person director;
+    private Division parentDivision;
+    private Division subdivision;
+
     @BeforeEach
     void setUp() {
         divisionRepositoryMock = Mockito.mock(DivisionRepository.class);
@@ -33,19 +39,15 @@ class DivisionServiceTest {
         personServiceMock = Mockito.mock(PersonService.class);
         divisionService = new DivisionService(divisionRepositoryMock,
                 personRepositoryMock, divisionMapperMock, personServiceMock);
-    }
 
-
-    @Test
-    void whenAddingDivision_thenDivisionRepositorySaveMethodIsCalled() {
-        DivisionDtoRequest divisionToSave = DivisionDtoRequest.builder()
+        divisionToSave = DivisionDtoRequest.builder()
                 .name("test")
                 .originalName("test")
                 .directorId(1L)
                 .parentDivisionId(1L)
                 .build();
 
-        DivisionDtoResponse divisionDtoResponse =
+        divisionDtoResponse =
                 DivisionDtoResponse.builder()
                         .divisionId(1L)
                         .directorId(1L)
@@ -54,18 +56,24 @@ class DivisionServiceTest {
                         .parentDivisionId(1L)
                         .build();
 
-        Person director = Person.builder().build();
-        Division parentDivision = new Division();
+        director = Person.builder().build();
+
+        parentDivision = new Division();
         parentDivision.setId(1L);
         parentDivision.setDirector(director);
         parentDivision.setOriginalName("Test");
         parentDivision.setName("Test");
 
-        Division subdivision = new Division();
+        subdivision = new Division();
         subdivision.setId(2L);
         subdivision.setDirector(director);
         subdivision.setOriginalName("Test");
         subdivision.setName("Test");
+    }
+
+
+    @Test
+    void whenAddingDivision_thenDivisionRepositorySaveMethodIsCalled() {
 
         Mockito.when(divisionRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.of((parentDivision)));
         Mockito.when(personRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(director));
@@ -80,35 +88,6 @@ class DivisionServiceTest {
 
     @Test
     void whenAddingDivisionWithInvalidDirector_thenExceptionIsThrown() {
-        DivisionDtoRequest divisionToSave = DivisionDtoRequest.builder()
-                .name("test")
-                .originalName("test")
-                .directorId(1L)
-                .parentDivisionId(1L)
-                .build();
-
-        DivisionDtoResponse divisionDtoResponse =
-                DivisionDtoResponse.builder()
-                        .divisionId(1L)
-                        .directorId(1L)
-                        .name("Test")
-                        .originalName("Test")
-                        .parentDivisionId(1L)
-                        .build();
-
-        Person director = Person.builder().build();
-        Division parentDivision = new Division();
-        parentDivision.setId(1L);
-        parentDivision.setDirector(director);
-        parentDivision.setOriginalName("Test");
-        parentDivision.setName("Test");
-
-        Division subdivision = new Division();
-        subdivision.setId(2L);
-        subdivision.setDirector(director);
-        subdivision.setOriginalName("Test");
-        subdivision.setName("Test");
-
         Mockito.doThrow(PersonNotFoundException.class).when(personServiceMock).assertValidPersonId(any(Long.class));
 
         Mockito.when(divisionRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.of((parentDivision)));
@@ -123,35 +102,6 @@ class DivisionServiceTest {
     @Test
     void
     whenAddingDivisionWithInvalidParentDivision_thenExceptionIsThrown() {
-        DivisionDtoRequest divisionToSave = DivisionDtoRequest.builder()
-                .name("test")
-                .originalName("test")
-                .directorId(1L)
-                .parentDivisionId(9L)
-                .build();
-
-        DivisionDtoResponse divisionDtoResponse =
-                DivisionDtoResponse.builder()
-                        .divisionId(1L)
-                        .directorId(1L)
-                        .name("Test")
-                        .originalName("Test")
-                        .parentDivisionId(9L)
-                        .build();
-
-        Person director = Person.builder().build();
-        Division parentDivision = new Division();
-        parentDivision.setId(1L);
-        parentDivision.setDirector(director);
-        parentDivision.setOriginalName("Test");
-        parentDivision.setName("Test");
-
-        Division subdivision = new Division();
-        subdivision.setId(2L);
-        subdivision.setDirector(director);
-        subdivision.setOriginalName("Test");
-        subdivision.setName("Test");
-
         Mockito.when(personRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(director));
         Mockito.when(divisionMapperMock.toEntity(any(DivisionDtoRequest.class))).thenReturn(subdivision);
         Mockito.when(divisionMapperMock.toResponse(any(Division.class))).thenReturn(divisionDtoResponse);

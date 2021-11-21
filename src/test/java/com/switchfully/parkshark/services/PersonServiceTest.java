@@ -25,32 +25,35 @@ class PersonServiceTest {
     private PersonRepository personRepositoryMock;
     private PersonService personServiceMock;
 
+    private AddressDtoRequest addressDtoRequest;
+    private Address addressEntity;
+    private PersonDtoRequest personDtoRequest;
+    private Person personEntity;
+    private AddressDtoResponse addressDtoResponse;
+    private PersonDtoResponse personDtoResponse;
+
     @BeforeEach
     void setUp() {
         personRepositoryMock = Mockito.mock(PersonRepository.class);
         personMapperMock = Mockito.mock(PersonMapper.class);
         personServiceMock = new PersonService(personRepositoryMock,
                 personMapperMock);
-    }
 
-    @Test
-    void whenAddingPerson_thenPersonRepositorySaveMethodIsCalled() {
-
-        AddressDtoRequest addressDtoRequest = AddressDtoRequest.builder()
+        addressDtoRequest = AddressDtoRequest.builder()
                 .streetName("Cool Street")
                 .streetNumber("5")
                 .postalCode("5641")
                 .city("CoolVille")
                 .build();
 
-        Address addressEntity = Address.builder()
+        addressEntity = Address.builder()
                 .streetName("Cool Street")
                 .streetNumber("5")
                 .postalCode("5641")
                 .city("CoolVille")
                 .build();
 
-        PersonDtoRequest personDtoRequest = PersonDtoRequest.builder()
+        personDtoRequest = PersonDtoRequest.builder()
                 .firstName("Jhon")
                 .lastName("Doe")
                 .email("john@doe.be")
@@ -62,7 +65,7 @@ class PersonServiceTest {
                 .registrationDate(LocalDate.now().toString())
                 .build();
 
-        Person personEntity = Person.builder()
+        personEntity = Person.builder()
                 .firstName("Jhon")
                 .lastName("Doe")
                 .email("john@doe.be")
@@ -74,7 +77,7 @@ class PersonServiceTest {
                 .membershipLevel(MembershipLevelCategory.Gold)
                 .build();
 
-        AddressDtoResponse addressDtoResponse =
+        addressDtoResponse =
                 AddressDtoResponse.builder()
                         .streetName("Cool Street")
                         .streetNumber("5")
@@ -82,7 +85,7 @@ class PersonServiceTest {
                         .city("CoolVille")
                         .build();
 
-        PersonDtoResponse personDtoResponse = PersonDtoResponse.builder()
+        personDtoResponse = PersonDtoResponse.builder()
                 .id(1L)
                 .firstName("Jhon")
                 .lastName("Doe")
@@ -94,9 +97,11 @@ class PersonServiceTest {
                 .phoneNumberMobile("684789798")
                 .membershipLevel(MembershipLevelCategory.Bronze.toString())
                 .build();
+    }
 
+    @Test
+    void whenAddingPerson_thenPersonRepositorySaveMethodIsCalled() {
         Mockito.when(personMapperMock.toEntity(any(PersonDtoRequest.class))).thenReturn(personEntity);
-
         Mockito.when(personMapperMock.toResponse(any(Person.class))).thenReturn(personDtoResponse);
 
         personServiceMock.registerMember(personDtoRequest);
@@ -106,25 +111,6 @@ class PersonServiceTest {
 
     @Test
     void whenEmailIsValid_ValidationDoesNotThrowException() {
-
-        AddressDtoRequest addressDtoRequest = AddressDtoRequest.builder()
-                .streetName("Cool Street")
-                .streetNumber("5")
-                .postalCode("5641")
-                .city("CoolVille")
-                .build();
-
-        PersonDtoRequest personDtoRequest = PersonDtoRequest.builder()
-                .firstName("Jhon")
-                .lastName("Doe")
-                .email("john@doe.be")
-                .addressDtoRequest(addressDtoRequest)
-                .phoneNumberMobile("074777777")
-                .phoneNumberLocal("069887744")
-                .licencePlateNumber("1-ppp-987")
-                .registrationDate(LocalDate.now().toString())
-                .build();
-
         assertDoesNotThrow(() ->
                 personServiceMock.assertValidPersonDTORequest(personDtoRequest));
     }
@@ -132,14 +118,7 @@ class PersonServiceTest {
     @Test
     void whenEmailIsInValid_ValidationDoesThrowException() {
 
-        AddressDtoRequest addressDtoRequest = AddressDtoRequest.builder()
-                .streetName("Cool Street")
-                .streetNumber("5")
-                .postalCode("5641")
-                .city("CoolVille")
-                .build();
-
-        PersonDtoRequest personDtoRequest = PersonDtoRequest.builder()
+        PersonDtoRequest invalidPersonDtoRequest = PersonDtoRequest.builder()
                 .firstName("Jhon")
                 .lastName("Doe")
                 .email("johndoebe")
@@ -151,29 +130,11 @@ class PersonServiceTest {
                 .build();
 
         assertThrows(IllegalArgumentException.class, () ->
-                personServiceMock.assertValidPersonDTORequest(personDtoRequest));
+                personServiceMock.assertValidPersonDTORequest(invalidPersonDtoRequest));
     }
 
     @Test
     void whenPersonIdIsValid_AssertValidPersonIdDoesNotThrowException() {
-
-        Address addressEntity = Address.builder()
-                .streetName("Cool Street")
-                .streetNumber("5")
-                .postalCode("5641")
-                .city("CoolVille")
-                .build();
-
-        Person personEntity = Person.builder()
-                .firstName("Jhon")
-                .lastName("Doe")
-                .email("john@doe.be")
-                .address(addressEntity)
-                .phoneNumberMobile("074777777")
-                .phoneNumberLocal("069887744")
-                .licencePlateNumber("1-ppp-555")
-                .registrationDate(LocalDate.now())
-                .build();
 
         Mockito.when(personRepositoryMock.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(personEntity));
 
@@ -191,14 +152,6 @@ class PersonServiceTest {
 
     @Test
     void whenPersonDTOHasNoMemberShipLevel_AssertSetMemberShipLeveLMethodSetsPersonToBronzeLevel() {
-
-        AddressDtoRequest addressDtoRequest = AddressDtoRequest.builder()
-                .streetName("Cool Street")
-                .streetNumber("5")
-                .postalCode("5641")
-                .city("CoolVille")
-                .build();
-
         PersonDtoRequest personDtoRequest = PersonDtoRequest.builder()
                 .firstName("Jhon")
                 .lastName("Doe")
