@@ -91,7 +91,7 @@ public class ParkingLotAllocationService {
         return parkingLotAllocationRepository.findAll(queryFilter, paging).map(parkingLotAllocationMapper::toResponse);
     }
 
-    private void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest, Person person) {
+    protected void assertAllocationRequestValid(ParkingLotAllocationDtoRequest allocationDtoRequest, Person person) {
         assertValidPersonId(allocationDtoRequest.getPersonId());
         assertValidParkingLotId(allocationDtoRequest.getParkingLotId());
         assertParkingLotIsNotFull(allocationDtoRequest.getParkingLotId());
@@ -143,7 +143,7 @@ public class ParkingLotAllocationService {
                 .count();
     }
 
-    private void assertParkingLotIsNotFull(Long parkingLotId) {
+    protected void assertParkingLotIsNotFull(Long parkingLotId) {
         if (getNumberOfAllocationForParkingLot(parkingLotId) >= parkingLotService.getParkingLotById(
                 parkingLotId).getCapacity()) {
             throw new ParkingIsFullException(parkingLotId);
