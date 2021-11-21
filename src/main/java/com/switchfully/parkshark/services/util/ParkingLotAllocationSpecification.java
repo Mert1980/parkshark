@@ -14,36 +14,36 @@ import javax.persistence.criteria.Root;
 public class ParkingLotAllocationSpecification {
 
     public Specification<ParkingLotAllocation> getParkingLotAllocations(String allocationStatus, String memberId, String parkingLotId) {
-        return (root, query, criteriaBuilder) -> {
+        return (parkingLotAllocation, query, criteriaBuilder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            addParkingLotAllocationStatusToQuery(allocationStatus, root, criteriaBuilder, predicates);
-            addMemberIdToQuery(memberId, root, criteriaBuilder, predicates);
-            addParkingLotIdToQuery(parkingLotId, root, criteriaBuilder, predicates);
+            addParkingLotAllocationStatusToQuery(allocationStatus, parkingLotAllocation, criteriaBuilder, predicates);
+            addMemberIdToQuery(memberId, parkingLotAllocation, criteriaBuilder, predicates);
+            addParkingLotIdToQuery(parkingLotId, parkingLotAllocation, criteriaBuilder, predicates);
 
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
 
-    private void addParkingLotAllocationStatusToQuery(String allocationStatus, Root<ParkingLotAllocation> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
+    private void addParkingLotAllocationStatusToQuery(String allocationStatus, Root<ParkingLotAllocation> parkingLotAllocation, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
             if (allocationStatus.equals("Stopped")) {
-                predicates.add(criteriaBuilder.isNotNull(root.get("stopTime")));
+                predicates.add(criteriaBuilder.isNotNull(parkingLotAllocation.get("stopTime")));
             }
             if (allocationStatus.equals("Active")) {
-                predicates.add(criteriaBuilder.isNull(root.get("stopTime")));
+                predicates.add(criteriaBuilder.isNull(parkingLotAllocation.get("stopTime")));
             }
     }
 
-    private void addMemberIdToQuery(String memberId, Root<ParkingLotAllocation> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
+    private void addMemberIdToQuery(String memberId, Root<ParkingLotAllocation> parkingLotAllocation, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
         if (memberId != null && !memberId.isEmpty()) {
-            predicates.add(criteriaBuilder.equal(root.get("person").get("id"), memberId));
+            predicates.add(criteriaBuilder.equal(parkingLotAllocation.get("person").get("id"), memberId));
         }
     }
 
-    private void addParkingLotIdToQuery(String parkingLotId, Root<ParkingLotAllocation> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
+    private void addParkingLotIdToQuery(String parkingLotId, Root<ParkingLotAllocation> parkingLotAllocation, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
         if (parkingLotId != null && !parkingLotId.isEmpty()) {
-            predicates.add(criteriaBuilder.equal(root.get("parkingLotId"), parkingLotId));
+            predicates.add(criteriaBuilder.equal(parkingLotAllocation.get("parkingLotId"), parkingLotId));
         }
     }
 
