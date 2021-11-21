@@ -55,12 +55,8 @@ public class PersonController {
   @PostMapping(consumes = "application/json", produces = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public PersonDtoResponse registerMember(@Valid @RequestBody PersonDtoRequest personDtoRequest, BindingResult bindingResult) {
+  public PersonDtoResponse registerMember(@Valid @RequestBody PersonDtoRequest personDtoRequest) {
     logger.info("Creating new user");
-    if (bindingResult.hasErrors()) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "All fields are required");
-    }
-
     return personService.registerMember(personDtoRequest);
   }
 }

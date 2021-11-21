@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Builder
@@ -17,8 +20,13 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class ParkingLotAllocationDtoRequest {
 
+  @NotNull(message = "Person id can not be empty")
   Long personId;
-  String licensePlateNumber;
-  Long parkingLotId;
 
+  @NotBlank(message = "License plate number can not be empty")
+  @NotNull
+  String licensePlateNumber;
+
+  @NotNull(message = "ParkingLot id can not be empty")
+  Long parkingLotId;
 }

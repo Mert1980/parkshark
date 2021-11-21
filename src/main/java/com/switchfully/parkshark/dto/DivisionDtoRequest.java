@@ -16,13 +16,16 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DivisionDtoRequest {
 
-  @NotBlank @NotNull
+  @NotBlank(message = "Division name can not be empty")
+  @NotNull
   String name;
 
-  @NotBlank @NotNull
+  @NotBlank(message = "Division original name can not be empty")
+  @NotNull
   String originalName;
 
-  @NotNull
+  @NotNull(message = "Director id can not be empty")
   Long directorId;
+
   Long parentDivisionId;
 }

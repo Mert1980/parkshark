@@ -8,7 +8,7 @@ import com.switchfully.parkshark.dto.PersonDtoRequest;
 import com.switchfully.parkshark.dto.PersonDtoResponse;
 import com.switchfully.parkshark.repositories.PersonRepository;
 import com.switchfully.parkshark.services.exceptions.PersonNotFoundException;
-import com.switchfully.parkshark.services.mapper.AddressDtoRequest;
+import com.switchfully.parkshark.dto.AddressDtoRequest;
 import com.switchfully.parkshark.services.mapper.PersonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

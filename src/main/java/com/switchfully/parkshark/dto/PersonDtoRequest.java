@@ -1,6 +1,5 @@
 package com.switchfully.parkshark.dto;
 
-import com.switchfully.parkshark.services.mapper.AddressDtoRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,22 +16,33 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PersonDtoRequest {
 
-  @NotBlank @NotNull
+  @NotBlank(message = "First name can not be empty")
+  @NotNull
   String firstName;
-  @NotBlank @NotNull
+
+  @NotBlank(message = "Last name can not be empty")
+  @NotNull
   String lastName;
-  @NotBlank @NotNull
+
+  @NotBlank(message = "Email name can not be empty")
+  @NotNull
   String email;
 
   @Valid
   AddressDtoRequest addressDtoRequest;
 
-  @NotBlank @NotNull
+  @NotBlank(message = "Mobile phone number name can not be empty")
+  @NotNull
   String phoneNumberMobile;
+
   String phoneNumberLocal;
-  @NotBlank @NotNull
+
+  @NotBlank(message = "Licence plate number can not be empty")
+  @NotNull
   String licencePlateNumber;
-  @NotBlank @NotNull
+
+  @NotBlank(message = "Registration date can not be empty")
+  @NotNull
   String registrationDate;
 
   String membershipLevel;

@@ -1,4 +1,4 @@
-package com.switchfully.parkshark.services.mapper;
+package com.switchfully.parkshark.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
