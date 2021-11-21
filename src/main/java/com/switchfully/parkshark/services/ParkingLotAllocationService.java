@@ -54,7 +54,6 @@ public class ParkingLotAllocationService {
     public ParkingLotAllocationDtoResponse startParking(
             ParkingLotAllocationDtoRequest parkingLotAllocationDtoRequest) {
 
-        System.out.println(parkingLotAllocationDtoRequest.toString());
         Person person = personService.findMemberById(parkingLotAllocationDtoRequest.getPersonId());
 
         assertAllocationRequestValid(parkingLotAllocationDtoRequest, person);
@@ -65,8 +64,7 @@ public class ParkingLotAllocationService {
         parkingLotAllocation.setStartTime(LocalDateTime.now().toString());
         parkingLotAllocation.setPerson(person);
 
-        return parkingLotAllocationMapper.toResponse(
-                parkingLotAllocationRepository.save(parkingLotAllocation));
+        return parkingLotAllocationMapper.toResponse(parkingLotAllocationRepository.save(parkingLotAllocation));
     }
 
     public ParkingLotAllocationDtoResponse stopParking(ParkingLotAllocationStopDtoRequest parkingLotAllocationStopDtoRequest) {

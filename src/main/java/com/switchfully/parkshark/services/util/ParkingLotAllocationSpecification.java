@@ -15,6 +15,7 @@ public class ParkingLotAllocationSpecification {
 
     private List<Predicate> predicates;
 
+
     public Specification<ParkingLotAllocation> getParkingLotAllocations(String allocationStatus, String memberId, String parkingLotId) {
         return (parkingLotAllocation, query, criteriaBuilder) -> {
 
@@ -29,12 +30,12 @@ public class ParkingLotAllocationSpecification {
     }
 
     private void addParkingLotAllocationStatusToQuery(String allocationStatus, Root<ParkingLotAllocation> parkingLotAllocation, CriteriaBuilder criteriaBuilder) {
-            if (allocationStatus.equals("Stopped")) {
-                predicates.add(criteriaBuilder.isNotNull(parkingLotAllocation.get("stopTime")));
-            }
-            if (allocationStatus.equals("Active")) {
-                predicates.add(criteriaBuilder.isNull(parkingLotAllocation.get("stopTime")));
-            }
+        if (allocationStatus.equals("Stopped")) {
+            predicates.add(criteriaBuilder.isNotNull(parkingLotAllocation.get("stopTime")));
+        }
+        if (allocationStatus.equals("Active")) {
+            predicates.add(criteriaBuilder.isNull(parkingLotAllocation.get("stopTime")));
+        }
     }
 
     private void addMemberIdToQuery(String memberId, Root<ParkingLotAllocation> parkingLotAllocation, CriteriaBuilder criteriaBuilder) {

@@ -29,7 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class PersonController {
 
   private final PersonService personService;
-  private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
+  private final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
   @Autowired
   public PersonController(PersonService personService) {
