@@ -55,12 +55,7 @@ public class DivisionController {
   @PostMapping(consumes = "application/json", produces = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
   @SecurityGuard(ApiUserRole.ADMIN)
-  public DivisionDtoResponse saveDivision(@Valid @RequestBody DivisionDtoRequest divisionDtoRequest,
-      BindingResult bindingResult) {
-    if (bindingResult.hasErrors()) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "All fields are required");
-    }
-
+  public DivisionDtoResponse saveDivision(@Valid @RequestBody DivisionDtoRequest divisionDtoRequest) {
     logger.info("Register new division " + divisionDtoRequest.getName());
     return divisionService.save(divisionDtoRequest);
   }
