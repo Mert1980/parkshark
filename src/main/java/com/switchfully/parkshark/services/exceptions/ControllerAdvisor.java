@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             throws IOException {
         logger.error("Invalid date entered " + exception.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), "Invalid date entered: " + exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public void handlePropertyReferenceException(PropertyReferenceException exception, HttpServletResponse response)
+            throws IOException {
+        logger.error(exception.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 
     @Override
