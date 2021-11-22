@@ -44,8 +44,8 @@ public class PersonService {
     }
 
     protected void setMemberShipLevelToBronzeIfNothingIsProvided(PersonDtoRequest personDtoRequest) {
-        if (personDtoRequest.getMembershipLevel().isEmpty()) {
-            personDtoRequest.setMembershipLevel(String.valueOf(MembershipLevelCategory.Bronze));
+        if (personDtoRequest.getMembershipLevel() == null || personDtoRequest.getMembershipLevel().isEmpty() ) {
+            personDtoRequest.setMembershipLevel(String.valueOf(MembershipLevelCategory.Bronze.getName()));
         }
     }
 

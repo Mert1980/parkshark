@@ -163,6 +163,6 @@ class PersonServiceTest {
 
         personServiceMock.setMemberShipLevelToBronzeIfNothingIsProvided(personDtoRequest);
 
-        assertEquals(MembershipLevelCategory.Bronze.toString(), personDtoRequest.getMembershipLevel());
+        assertEquals(MembershipLevelCategory.Bronze.getName(), personDtoRequest.getMembershipLevel());
     }
 }
