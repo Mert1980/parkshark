@@ -18,7 +18,7 @@ public class ParkingLotAllocationDtoResponse {
 
   long parkingLotAllocationId;
   long personId;
-  String licencePlateNumber;
+  String licensePlateNumber;
   long parkingLotId;
   String startTime;
   String stopTime;

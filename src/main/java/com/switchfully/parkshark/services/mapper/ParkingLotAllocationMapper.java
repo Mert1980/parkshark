@@ -25,7 +25,7 @@ public class ParkingLotAllocationMapper {
     return ParkingLotAllocationDtoResponse.builder()
         .parkingLotAllocationId(entity.getId())
         .personId(entity.getPerson().getId())
-        .licencePlateNumber(entity.getLicensePlateNumber())
+        .licensePlateNumber(entity.getLicensePlateNumber())
         .parkingLotId(entity.getParkingLotId())
         .startTime(entity.getStartTime())
         .stopTime(entity.getStopTime())
