@@ -62,7 +62,6 @@ class PersonServiceTest {
                 .phoneNumberLocal("069887744")
                 .licencePlateNumber("1-ppp-987")
                 .membershipLevel("Bronze")
-                .registrationDate(LocalDate.now().toString())
                 .build();
 
         personEntity = Person.builder()
@@ -126,7 +125,6 @@ class PersonServiceTest {
                 .phoneNumberMobile("074777777")
                 .phoneNumberLocal("069887744")
                 .licencePlateNumber("1-ppp-987")
-                .registrationDate(LocalDate.now().toString())
                 .build();
 
         assertThrows(IllegalArgumentException.class, () ->
@@ -160,7 +158,6 @@ class PersonServiceTest {
                 .phoneNumberMobile("074777777")
                 .phoneNumberLocal("069887744")
                 .licencePlateNumber("1-ppp-987")
-                .registrationDate(LocalDate.now().toString())
                 .membershipLevel("")
                 .build();
 

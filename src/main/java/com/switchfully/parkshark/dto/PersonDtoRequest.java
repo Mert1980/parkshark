@@ -41,9 +41,5 @@ public class PersonDtoRequest {
   @NotNull
   String licencePlateNumber;
 
-  @NotBlank(message = "Registration date can not be empty")
-  @NotNull
-  String registrationDate;
-
   String membershipLevel;
 }

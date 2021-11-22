@@ -28,7 +28,7 @@ public class PersonMapper {
                 .phoneNumberMobile(personDtoRequest.getPhoneNumberMobile())
                 .phoneNumberLocal(personDtoRequest.getPhoneNumberLocal())
                 .licencePlateNumber(personDtoRequest.getLicencePlateNumber())
-                .registrationDate(LocalDate.parse(personDtoRequest.getRegistrationDate()))
+                .registrationDate(LocalDate.now())
                 .membershipLevel(MembershipLevelCategory.valueOf(personDtoRequest.getMembershipLevel()))
                 .build();
     }
